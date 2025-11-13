@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 4.0)
-project(PitchMemory)
+project(Bibo_no-Aozora)
 
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(
-        PitchMemory main.cpp
+        Bibo_no-Aozora main.cpp
         src/Pitch.cpp
         src/Pitch.h
         External/miniaudio.h
