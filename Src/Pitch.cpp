@@ -110,7 +110,7 @@ using namespace std;
     string Pitch::get_noteName(){
         return noteName;
     }
-    [[nodiscard]] double Pitch::get_frequency() const{
+    [[nodiscard]] float Pitch::get_frequency() const{
         return frequency;
     }
     [[nodiscard]] int Pitch::get_midi_n() const{

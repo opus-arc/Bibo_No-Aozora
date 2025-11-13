@@ -14,7 +14,7 @@ class Pitch{
     static bool noteName_formatCheck(const string &input_noteName);
 
     int midi_n = 0;
-    double frequency = A4_STANDARD;
+    float frequency = A4_STANDARD;
     void noteToFrequency();
 
 public:
@@ -23,7 +23,7 @@ public:
     void print_frequency() const;
     void midi_n_frequency() const;
     string get_noteName();
-    [[nodiscard]] double get_frequency() const;
+    [[nodiscard]] float get_frequency() const;
     [[nodiscard]] int get_midi_n() const;
 };
 
