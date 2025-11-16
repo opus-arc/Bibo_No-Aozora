@@ -5,36 +5,41 @@
 #ifndef PITCHMEMORY_PLAYER_H
 #define PITCHMEMORY_PLAYER_H
 
-// Basic Setting
-#define AUDIO_SAMPLE_RATE      44100   // 采样率：44.1kHz
-#define AUDIO_CHANNELS         2       // 声道数：2 = 立体声
-#define AUDIO_FORMAT           ma_format_f32  // 使用 float
-#define AUDIO_MASTER_VOLUME    1.0f    // 全局主音量（最后一道乘法）
+#include "../External/miniaudio.h"
 
-#define AUDIO_FRAMES_PER_BUF   512     // buffer 大小，影响延迟/稳定
-#define AUDIO_BACKEND_DEFAULT  1       // 使用默认后端
-
-// Audio Quality
-#define SYNTH_WAVE_DEFAULT   WAVE_SINE   // 默认正弦波形
-#define SYNTH_CLIP_LIMIT     0.98f       // 防止爆音的上限
-#define SYNTH_MAX_VOICES     8          // 同时最多叠加的声音个数
-#define SYNTH_ENABLE_PAN     1          // 是否需要支持左右声道偏移
-
-#define MINIAUDIO_IMPLEMENTATION
-
-struct Note {
-    float freq      = 440.0f;
-    float volume    = 0.7f;
-    float duration  = 1.0f;
-
-    float attack    = 0.01f;
-    float decay     = 0.1f;
-    float sustain   = 0.8f;
-    float release   = 0.2f;
-
-    float pan       = 0.0f;   // -1 ~ 1 平衡
-    int   waveType  = 0;      // 不展开
+// Simple tone state to support duration timing
+struct ToneState {
+    mutable float frequency;   // Hz
+    float duration;    // seconds
+    float elapsed;     // seconds
+    float phase;       // radians
+    bool  active;      // whether the tone is still sounding
 };
 
+static ToneState gTone; // one global tone for now (step 1: duration only)
 
-#endif //PITCHMEMORY_PLAYER_H
+class RecordPlayer{
+public:
+    explicit RecordPlayer();
+    explicit RecordPlayer(const ToneState& tone_state);
+
+     ~RecordPlayer();
+
+     void start();
+private:
+
+
+    ma_device device{};
+    ma_device_config config{};
+
+    void stop();
+
+    static void dataCallback(
+        ma_device *pDevice,
+        void *pOutput,
+        const void *pInput,
+        ma_uint32 frameCount
+    );
+};
+
+#endif // PITCHMEMORY_PLAYER_H

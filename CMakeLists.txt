@@ -12,5 +12,8 @@ add_executable(
         src/Note.h
         src/RecordPlayer.cpp
         src/RecordPlayer.h
-        Src/TonePreset.h
+        Src/SingleTrack.h
+        Src/SingleTrack.cpp
+        Src/Chord.cpp
+        Src/Chord.h
 )
