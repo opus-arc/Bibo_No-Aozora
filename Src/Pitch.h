@@ -8,44 +8,45 @@
 #include <iostream>
 #include<string>
 
-#include "RecordPlayer.h"
+#include "Envelop.h"
+#include "Harmonics.h"
+
 using namespace std;
 #define A4_STANDARD 440.0
 
 
 class Pitch {
-    string noteName = "A4";
-
-    static bool noteName_formatCheck(const string &input_noteName);
-
-    int midi_n = 0;
-    float frequency = A4_STANDARD;
-
-    void noteToFrequency();
-
-    RecordPlayer *player;
-
 public:
-    explicit Pitch(const string &input_noteName);
 
-    explicit Pitch();
 
+    string noteName;
+    int midi_n;
+    float frequency;
+    float duration;
+
+    Envelop envelope;
+    Harmonics harmonics;
+
+
+    // "D#2" and *player
+    explicit Pitch(
+        string input_noteName,
+        float duration,
+        const Envelop& input_envelope,
+        const Harmonics& harmonic
+    );
+
+    // Pitch = Pitch
     Pitch(const Pitch &input_pitch);
 
-    void playTheSound() const;
+    void play() const;
 
-    void print_noteName() const;
+private:
+    static bool noteName_formatCheck(const string &input_noteName);
 
-    void print_frequency() const;
+    static int nameToMidi(const string &noteName);
 
-    void midi_n_frequency() const;
-
-    string get_noteName();
-
-    [[nodiscard]] float get_frequency() const;
-
-    [[nodiscard]] int get_midi_n() const;
+    static float midiToFrequency(int midi);
 };
-
 
 #endif //NOTESPLAYER_PITCH_H

@@ -8,12 +8,14 @@ add_executable(
         src/Pitch.cpp
         src/Pitch.h
         External/miniaudio.h
-        src/Note.cpp
-        src/Note.h
         src/RecordPlayer.cpp
         src/RecordPlayer.h
         Src/SingleTrack.h
         Src/SingleTrack.cpp
         Src/Chord.cpp
         Src/Chord.h
+        Src/Harmonics.cpp
+        Src/Harmonics.h
+        Src/Envelop.cpp
+        Src/Envelop.h
 )

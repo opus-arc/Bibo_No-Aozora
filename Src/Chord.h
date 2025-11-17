@@ -6,7 +6,9 @@
 #define BIBO_NO_AOZORA_CHORD_H
 
 
-class Chord {
+
+class Chord{
+
 };
 
 

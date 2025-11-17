@@ -8,7 +8,7 @@
 
 ## 2. Entry
 1. Notation => Chord, Articulations
-2. Flavor
+2. Timbre
 3. Tempo => Duration
 
 ## 3. Entry

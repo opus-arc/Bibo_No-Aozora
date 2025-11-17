@@ -5,6 +5,8 @@
       <w>adsr</w>
       <w>pitchmemory</w>
       <w>pitchs</w>
+      <w>soundconfig</w>
+      <w>timbreenv</w>
       <w>tonepreset</w>
     </words>
   </dictionary>

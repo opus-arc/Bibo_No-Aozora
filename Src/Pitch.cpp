@@ -3,21 +3,14 @@
 //
 
 #include "Pitch.h"
-
-#include <iostream>
 #include<string>
+
+#include "RecordPlayer.h"
 using namespace std;
 
-constexpr ToneState toneState = {
-    .frequency = 440.0f,   // 基频（Hz）——标准 A4
-    .duration  = 2.0f,     // 时长（秒）
-    .elapsed   = 0.0f,     // 初始播放时间
-    .phase     = 0.0f,     // 起始相位
-    .active    = true       // 启用（当前正在发声）
-};
 
-void Pitch::playTheSound() const {
-    player->start();
+void Pitch::play() const {
+    RecordPlayer::trigger(*this);
 }
 
 bool Pitch::noteName_formatCheck(const string &input_noteName) {
@@ -43,7 +36,7 @@ bool Pitch::noteName_formatCheck(const string &input_noteName) {
             );
 }
 
-void Pitch::noteToFrequency() {
+int Pitch::nameToMidi(const string &noteName) {
     char letterName;
     int octaveNumber;
     int accidental;
@@ -93,55 +86,28 @@ void Pitch::noteToFrequency() {
             _12_TET = 0;
             break;
     }
-    midi_n = _12_TET + octaveNumber * 12 + 12;
-    double semitoneFromA4 = midi_n - 69;
-
-    frequency = A4_STANDARD * pow(2.0, (double) (semitoneFromA4 / 12.0));
+    return _12_TET + octaveNumber * 12 + 12;
 }
 
-Pitch::Pitch(const string &input_noteName) : noteName
-    (
-        noteName_formatCheck(input_noteName) ? input_noteName : "A4"
-    ) {
+float Pitch::midiToFrequency(const int midi) {
+    const int semitoneFromA4 = midi - 69;
 
-    noteToFrequency();
-
-    toneState.frequency = frequency;
-
-    player = new RecordPlayer(toneState);
-
-}
-Pitch::Pitch() :
-    noteName(),
-    player()
-{
-    noteToFrequency();
-}
-Pitch::Pitch(const Pitch& input_pitch) {
-    noteName = input_pitch.noteName;
-    noteToFrequency();
-};
-
-void Pitch::print_noteName() const {
-    cout << noteName << endl;
+    return A4_STANDARD * pow(2.0, static_cast<float>(semitoneFromA4 / 12.0));
 }
 
-void Pitch::print_frequency() const {
-    cout << frequency << endl;
+
+Pitch::Pitch(
+    string input_noteName,
+    const float duration,
+    const Envelop& input_envelope,
+    const Harmonics& harmonics
+) : noteName(input_noteName),
+    duration(duration),
+    midi_n(nameToMidi(noteName)),
+    frequency(midiToFrequency(midi_n)),
+    envelope(input_envelope),
+    harmonics(harmonics){
 }
 
-void Pitch::midi_n_frequency() const {
-    cout << midi_n << endl;
-}
 
-string Pitch::get_noteName() {
-    return noteName;
-}
-
-[[nodiscard]] float Pitch::get_frequency() const {
-    return frequency;
-}
-
-[[nodiscard]] int Pitch::get_midi_n() const {
-    return midi_n;
-}
+Pitch::Pitch(const Pitch &input_pitch) = default;

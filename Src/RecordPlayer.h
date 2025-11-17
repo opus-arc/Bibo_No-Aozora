@@ -5,34 +5,29 @@
 #ifndef PITCHMEMORY_PLAYER_H
 #define PITCHMEMORY_PLAYER_H
 
+
+#include "Pitch.h"
 #include "../External/miniaudio.h"
 
-// Simple tone state to support duration timing
-struct ToneState {
-    mutable float frequency;   // Hz
-    float duration;    // seconds
-    float elapsed;     // seconds
-    float phase;       // radians
-    bool  active;      // whether the tone is still sounding
-};
-
-static ToneState gTone; // one global tone for now (step 1: duration only)
 
 class RecordPlayer{
 public:
     explicit RecordPlayer();
-    explicit RecordPlayer(const ToneState& tone_state);
 
-     ~RecordPlayer();
+    ~RecordPlayer();
 
-     void start();
+    void start();
+
+    // static void blockUntilSilence() ;
+
+    static void trigger(const Pitch& p);
+
+    void stop();
+
 private:
-
-
     ma_device device{};
     ma_device_config config{};
 
-    void stop();
 
     static void dataCallback(
         ma_device *pDevice,
