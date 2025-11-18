@@ -4,13 +4,14 @@
 
 #include "Pitch.h"
 #include<string>
+#include <thread>
 
 #include "RecordPlayer.h"
 using namespace std;
 
 
 void Pitch::play() const {
-    RecordPlayer::trigger(*this);
+    RecordPlayer::trigger(envHar.preset);
 }
 
 bool Pitch::noteName_formatCheck(const string &input_noteName) {
@@ -99,14 +100,13 @@ float Pitch::midiToFrequency(const int midi) {
 Pitch::Pitch(
     string input_noteName,
     const float duration,
-    const Envelop& input_envelope,
-    const Harmonics& harmonics
+    const EnvHarmonics::HarmonicType& harTy,
+    const EnvHarmonics::EnvelopeType& envTy
 ) : noteName(input_noteName),
     duration(duration),
     midi_n(nameToMidi(noteName)),
     frequency(midiToFrequency(midi_n)),
-    envelope(input_envelope),
-    harmonics(harmonics){
+    envHar(frequency, harTy, envTy) {
 }
 
 

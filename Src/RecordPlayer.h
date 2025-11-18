@@ -20,7 +20,7 @@ public:
 
     // static void blockUntilSilence() ;
 
-    static void trigger(const Pitch& p);
+    static void trigger(const EnvHarmonics::EnvHar_preset& envHar_pre);
 
     void stop();
 

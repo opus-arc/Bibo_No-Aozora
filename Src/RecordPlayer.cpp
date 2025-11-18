@@ -29,22 +29,9 @@
 #define E      2.71828182845904523536f
 
 
-struct RuntimeState {
-    float frequency;
-    float duration;
-    float elapsed;
-    float phase;
-    bool active;
 
-    RuntimeState(float fre, float duration, float elapsed, float phase, bool active) : frequency(fre),
-        duration(duration),
-        elapsed(elapsed),
-        phase(phase),
-        active(active){}
-    RuntimeState(){}
-};
+EnvHarmonics::EnvHar_preset preset;
 
-RuntimeState gTone;
 
 RecordPlayer::RecordPlayer() {
     config = ma_device_config_init(ma_device_type_playback);
@@ -54,7 +41,7 @@ RecordPlayer::RecordPlayer() {
     config.dataCallback = dataCallback;
     // Initialize tone timing state (step 1: fixed duration demo)
 
-    config.pUserData = &gTone;
+    config.pUserData = &preset;
 
     if (ma_device_init(nullptr, &config, &device) != MA_SUCCESS) {
         std::cerr << "Failed to initialize audio device.\n";
@@ -77,53 +64,106 @@ void RecordPlayer::stop() {
     ma_device_stop(&device);
 }
 
-void RecordPlayer::trigger(const Pitch& p) {
-    gTone.frequency = p.frequency;
-    gTone.duration = p.duration;
-    gTone.elapsed = 0.0f;
-    gTone.phase = 0.0f;
-    gTone.active = true;
-    while (gTone.active) {
+void RecordPlayer::trigger(const EnvHarmonics::EnvHar_preset& envHar_pre) {
+    // 拷贝预设到设备用的 preset
+    preset = envHar_pre;
+
+    // 重置运行时状态
+    // 频率建议在外部构造 envHar_pre 时就已经设置好，这里不改它
+    preset.state.duration = preset.envelope.duration; // 播放时长按包络 duration
+    preset.state.elapsed  = 0.0f;
+    preset.state.phase    = 0.0f;
+    preset.state.active   = true;
+
+    // 简单给设备线程一点时间看到新数据
+    while (preset.state.active) {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
+
+    std::cout<<preset.state.frequency<<" "<<preset.state.phase<<"\n";
 }
 
-//
-// void RecordPlayer::blockUntilSilence() {
-//
-// }
 
 // can't motify this sign it's not flexible
+// void RecordPlayer::dataCallback(
+//     ma_device *pDevice,
+//     void *pOutput,
+//     const void *pInput,
+//     const ma_uint32 frameCount
+// ) {
+//
+//     auto *out = static_cast<float *>(pOutput);
+//     auto *t = static_cast<RuntimeState *>(pDevice->pUserData);
+//
+//     const float phaseIncrement = 2.0f * PI * t->frequency / static_cast<float>(pDevice->sampleRate);
+//     const float dt = 1.0f / static_cast<float>(pDevice->sampleRate);
+//
+//     for (ma_uint32 i = 0; i < frameCount; ++i) {
+//         float sample = 0.0f;
+//
+//         if (t->active && t->elapsed < t->duration) {
+//             sample = sinf(t->phase);
+//             t->phase += phaseIncrement;
+//             if (t->phase >= 2.0f * PI) {
+//                 t->phase -= 2.0f * PI;
+//             }
+//             t->elapsed += dt;
+//
+//             if (t->elapsed >= t->duration) {
+//                 t->active = false; // finished; subsequent frames will be silent
+//             }
+//         } else {
+//             sample = 0.0f; // silent after duration
+//         }
+//
+//         for (int ch = 0; ch < pDevice->playback.channels; ++ch) {
+//             *out++ = sample;
+//         }
+//     }
+//
+// }
 void RecordPlayer::dataCallback(
     ma_device *pDevice,
     void *pOutput,
     const void *pInput,
     const ma_uint32 frameCount
 ) {
-    auto *out = static_cast<float *>(pOutput);
-    auto *t = static_cast<RuntimeState *>(pDevice->pUserData);
+    // cout<<"RecordPlayer::dataCallback"<<endl;
 
-    const float phaseIncrement = 2.0f * PI * t->frequency / static_cast<float>(pDevice->sampleRate);
-    const float dt = 1.0f / static_cast<float>(pDevice->sampleRate);
+    auto* out    = static_cast<float*>(pOutput);
+    auto* preset = static_cast<EnvHarmonics::EnvHar_preset*>(pDevice->pUserData);
+
+    const float sampleRate = static_cast<float>(pDevice->sampleRate);
+    const float dt         = 1.0f / sampleRate;
 
     for (ma_uint32 i = 0; i < frameCount; ++i) {
         float sample = 0.0f;
 
-        if (t->active && t->elapsed < t->duration) {
-            sample = sinf(t->phase);
-            t->phase += phaseIncrement;
-            if (t->phase >= 2.0f * PI) {
-                t->phase -= 2.0f * PI;
-            }
-            t->elapsed += dt;
+        if (preset) {
+            EnvHarmonics::RuntimeState& state = preset->state;
 
-            if (t->elapsed >= t->duration) {
-                t->active = false; // finished; subsequent frames will be silent
+            if (state.active && state.elapsed < state.duration) {
+                // 用谐波 + 包络合成当前时刻的一个 sample
+                sample = EnvHarmonics::synthesizeSample(
+                    *preset,
+                    state.frequency,
+                    state.elapsed
+                );
+
+                state.elapsed += dt;
+                if (state.elapsed >= state.duration) {
+                    state.active = false; // 播放结束，转为静音
+                }
+            } else {
+                // cout<<"当前没有在发声，静音"<<endl;
+                sample = 0.0f; // 当前没有在发声，静音
             }
         } else {
-            sample = 0.0f; // silent after duration
+            // cout<<"没有 preset 数据，静音"<<endl;
+            sample = 0.0f; // 没有 preset 数据，静音
         }
 
+        // 写入所有输出声道
         for (int ch = 0; ch < pDevice->playback.channels; ++ch) {
             *out++ = sample;
         }

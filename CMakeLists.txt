@@ -14,8 +14,6 @@ add_executable(
         Src/SingleTrack.cpp
         Src/Chord.cpp
         Src/Chord.h
-        Src/Harmonics.cpp
-        Src/Harmonics.h
-        Src/Envelop.cpp
-        Src/Envelop.h
+        Src/EnvHarmonics.cpp
+        Src/EnvHarmonics.h
 )

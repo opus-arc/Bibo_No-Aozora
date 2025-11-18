@@ -8,8 +8,7 @@
 #include <iostream>
 #include<string>
 
-#include "Envelop.h"
-#include "Harmonics.h"
+#include "EnvHarmonics.h"
 
 using namespace std;
 #define A4_STANDARD 440.0
@@ -24,16 +23,15 @@ public:
     float frequency;
     float duration;
 
-    Envelop envelope;
-    Harmonics harmonics;
+    EnvHarmonics envHar;
 
 
     // "D#2" and *player
     explicit Pitch(
         string input_noteName,
         float duration,
-        const Envelop& input_envelope,
-        const Harmonics& harmonic
+        const EnvHarmonics::HarmonicType& harTy,
+        const EnvHarmonics::EnvelopeType& envTy
     );
 
     // Pitch = Pitch
