@@ -80,7 +80,7 @@ void RecordPlayer::trigger(const EnvHarmonics::EnvHar_preset& envHar_pre) {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
-    std::cout<<preset.state.frequency<<" "<<preset.state.phase<<"\n";
+    // std::cout<<preset.state.frequency<<" "<<preset.state.phase<<"\n";
 }
 
 
@@ -128,12 +128,13 @@ void RecordPlayer::dataCallback(
     const void *pInput,
     const ma_uint32 frameCount
 ) {
-    // cout<<"RecordPlayer::dataCallback"<<endl;
 
     auto* out    = static_cast<float*>(pOutput);
     auto* preset = static_cast<EnvHarmonics::EnvHar_preset*>(pDevice->pUserData);
 
     const float sampleRate = static_cast<float>(pDevice->sampleRate);
+
+    // 一帧多少秒
     const float dt         = 1.0f / sampleRate;
 
     for (ma_uint32 i = 0; i < frameCount; ++i) {

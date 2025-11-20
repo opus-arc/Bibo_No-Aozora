@@ -5,6 +5,7 @@
 #include "Pitch.h"
 #include<string>
 #include <thread>
+#include <utility>
 #include <cmath>
 
 #include "RecordPlayer.h"
@@ -100,14 +101,14 @@ float Pitch::midiToFrequency(const int midi) {
 
 Pitch::Pitch(
     string input_noteName,
-    const float duration,
+    const float dur,
     const EnvHarmonics::HarmonicType& harTy,
     const EnvHarmonics::EnvelopeType& envTy
-) : noteName(input_noteName),
-    duration(duration),
+) : noteName(std::move(input_noteName)),
+    duration(dur),
     midi_n(nameToMidi(noteName)),
     frequency(midiToFrequency(midi_n)),
-    envHar(frequency, harTy, envTy) {
+    envHar(frequency, dur, harTy, envTy) {
 }
 
 

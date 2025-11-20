@@ -19,9 +19,9 @@ public:
 
 
     string noteName;
+    float duration;
     int midi_n;
     float frequency;
-    float duration;
 
     EnvHarmonics envHar;
 
@@ -29,7 +29,7 @@ public:
     // "D#2" and *player
     explicit Pitch(
         string input_noteName,
-        float duration,
+        float dur,
         const EnvHarmonics::HarmonicType& harTy,
         const EnvHarmonics::EnvelopeType& envTy
     );

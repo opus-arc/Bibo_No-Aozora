@@ -10,7 +10,7 @@ int main() {
     player.start();
 
     const Pitch p(
-        "C5",
+        "C4",
         1.0f,
         HarTy::SoftPiano,
         EnvTy::SingleNoteLinear
@@ -18,12 +18,20 @@ int main() {
     p.play();
 
     const Pitch p2(
-    "G5",
-    1.0f,
-    HarTy::SoftPiano,
-    EnvTy::SingleNoteLinear
-);
+        "G4",
+        1.0f,
+        HarTy::SoftPiano,
+        EnvTy::SingleNoteLinear
+    );
     p2.play();
+
+    const Pitch p3(
+        "G4",
+        1.0f,
+        HarTy::PureSine,
+        EnvTy::None
+    );
+    p3.play();
 
 
     player.stop();

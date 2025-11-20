@@ -19,6 +19,7 @@ public:
 
     // -------Structs---------
     enum HarmonicType {
+        PureSine,
         SoftPiano
     };
 
@@ -37,14 +38,16 @@ public:
     std::vector<SingleHar> harmonics;
 
     // -------FuncPoints------
-    using HarmonicFreqCalculate = float(*)(float f0, int n, float B);
+    using HarmonicFreqCalculate = float(*)(float f0, int n, float);
     HarmonicFreqCalculate harmonicFreq = nullptr;
 
+    static float idealizationHarmonicFreq(float f0, int n, float placeHolder);
     static float pianoHarmonicFreq(float f0, int n, float B);
 
     // Envelop -------------------------------------------
     // -------Structs---------
     enum EnvelopeType {
+        None,
         SingleNoteLinear
     };
     struct Envelope {
@@ -84,16 +87,18 @@ public:
     using EnvHarKey = std::pair<HarmonicType, EnvelopeType>;
 
     static const EnvHar_preset HE_Preset_SoftPiano;
+    static const EnvHar_preset HE_Preset_Pure_Sine;
 
     std::map<EnvHarKey, EnvHar_preset> HE_Preset_Map = {
+        {{PureSine, None}, HE_Preset_Pure_Sine},
         {{SoftPiano, SingleNoteLinear}, HE_Preset_SoftPiano}
     };
 
     EnvHar_preset preset;
 
-    EnvHarmonics(float f0, HarmonicType harTy, EnvelopeType envTy);
+    EnvHarmonics(float f0, float dur, HarmonicType harTy, EnvelopeType envTy);
 
-    static float synthesizeSample(const ::EnvHarmonics::EnvHar_preset &preset, float fundamentalFreq, float tSec);
+    static float synthesizeSample(const EnvHar_preset &preset, float fundamentalFreq, float tSec);
 };
 
 
