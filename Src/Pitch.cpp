@@ -5,6 +5,7 @@
 #include "Pitch.h"
 #include<string>
 #include <thread>
+#include <cmath>
 
 #include "RecordPlayer.h"
 using namespace std;
