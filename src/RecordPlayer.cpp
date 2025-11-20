@@ -29,8 +29,7 @@
 #define E      2.71828182845904523536f
 
 
-
-EnvHarmonics::EnvHar_preset preset;
+std::vector<EnvHarmonics::EnvHar_preset> presets;
 
 
 RecordPlayer::RecordPlayer() {
@@ -41,7 +40,7 @@ RecordPlayer::RecordPlayer() {
     config.dataCallback = dataCallback;
     // Initialize tone timing state (step 1: fixed duration demo)
 
-    config.pUserData = &preset;
+    config.pUserData = &presets;
 
     if (ma_device_init(nullptr, &config, &device) != MA_SUCCESS) {
         std::cerr << "Failed to initialize audio device.\n";
@@ -64,100 +63,97 @@ void RecordPlayer::stop() {
     ma_device_stop(&device);
 }
 
-void RecordPlayer::trigger(const EnvHarmonics::EnvHar_preset& envHar_pre) {
+void RecordPlayer::trigger(const EnvHarmonics::EnvHar_preset &envHar_pre) {
     // 拷贝预设到设备用的 preset
-    preset = envHar_pre;
+    presets.push_back(envHar_pre);
 
     // 重置运行时状态
-    // 频率建议在外部构造 envHar_pre 时就已经设置好，这里不改它
-    preset.state.duration = preset.envelope.duration; // 播放时长按包络 duration
-    preset.state.elapsed  = 0.0f;
-    preset.state.phase    = 0.0f;
-    preset.state.active   = true;
+    presets.back().state.duration = presets.back().envelope.duration; // 播放时长按包络 duration
+    presets.back().state.elapsed = 0.0f;
+    presets.back().state.phase = 0.0f;
+    presets.back().state.active = true;
 
     // 简单给设备线程一点时间看到新数据
-    while (preset.state.active) {
+    while (presets.back().state.active) {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
     // std::cout<<preset.state.frequency<<" "<<preset.state.phase<<"\n";
 }
 
+void RecordPlayer::trigger(const std::vector<EnvHarmonics::EnvHar_preset> &pres) {
+    // 拷贝预设到设备用的 preset
+    presets = pres;
 
-// can't motify this sign it's not flexible
-// void RecordPlayer::dataCallback(
-//     ma_device *pDevice,
-//     void *pOutput,
-//     const void *pInput,
-//     const ma_uint32 frameCount
-// ) {
-//
-//     auto *out = static_cast<float *>(pOutput);
-//     auto *t = static_cast<RuntimeState *>(pDevice->pUserData);
-//
-//     const float phaseIncrement = 2.0f * PI * t->frequency / static_cast<float>(pDevice->sampleRate);
-//     const float dt = 1.0f / static_cast<float>(pDevice->sampleRate);
-//
-//     for (ma_uint32 i = 0; i < frameCount; ++i) {
-//         float sample = 0.0f;
-//
-//         if (t->active && t->elapsed < t->duration) {
-//             sample = sinf(t->phase);
-//             t->phase += phaseIncrement;
-//             if (t->phase >= 2.0f * PI) {
-//                 t->phase -= 2.0f * PI;
-//             }
-//             t->elapsed += dt;
-//
-//             if (t->elapsed >= t->duration) {
-//                 t->active = false; // finished; subsequent frames will be silent
-//             }
-//         } else {
-//             sample = 0.0f; // silent after duration
-//         }
-//
-//         for (int ch = 0; ch < pDevice->playback.channels; ++ch) {
-//             *out++ = sample;
-//         }
-//     }
-//
-// }
+    // 重置运行时状态
+    for (auto &p: presets) {
+        p.state.duration = p.envelope.duration; // 播放时长按包络 duration
+        p.state.elapsed = 0.0f;
+        p.state.phase = 0.0f;
+        p.state.active = true;
+    }
+        // 简单给设备线程一点时间看到新数据，直到所有音符播放结束
+        bool anyActive = true;
+        while (anyActive) {
+            anyActive = false;
+            for (const auto &p: presets) {
+                if (p.state.active) {
+                    anyActive = true;
+                    break;
+                }
+            }
+            if (anyActive) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            }
+
+            // std::cout<<preset.state.frequency<<" "<<preset.state.phase<<"\n";
+        }
+
+}
+
 void RecordPlayer::dataCallback(
     ma_device *pDevice,
     void *pOutput,
     const void *pInput,
     const ma_uint32 frameCount
 ) {
+    auto *out = static_cast<float *>(pOutput);
+    auto *presetsPtr = static_cast<std::vector<EnvHarmonics::EnvHar_preset> *>(pDevice->pUserData);
 
-    auto* out    = static_cast<float*>(pOutput);
-    auto* preset = static_cast<EnvHarmonics::EnvHar_preset*>(pDevice->pUserData);
-
-    const float sampleRate = static_cast<float>(pDevice->sampleRate);
+    const auto sampleRate = static_cast<float>(pDevice->sampleRate);
 
     // 一帧多少秒
-    const float dt         = 1.0f / sampleRate;
+    const float dt = 1.0f / sampleRate;
 
     for (ma_uint32 i = 0; i < frameCount; ++i) {
         float sample = 0.0f;
 
-        if (preset) {
-            EnvHarmonics::RuntimeState& state = preset->state;
+        if (!presetsPtr->empty()) {
+            float sum   = 0.0f;
+            float count = 0.0f;
+            for (auto &pre : *presetsPtr) {
+                auto &state = pre.state;
+                if (state.active && state.elapsed < state.duration) {
+                    // 用谐波 + 包络合成当前时刻的一个 sample
+                    const float s = EnvHarmonics::synthesizeSample(
+                        pre,
+                        state.frequency,
+                        state.elapsed
+                    );
 
-            if (state.active && state.elapsed < state.duration) {
-                // 用谐波 + 包络合成当前时刻的一个 sample
-                sample = EnvHarmonics::synthesizeSample(
-                    *preset,
-                    state.frequency,
-                    state.elapsed
-                );
+                    sum   += s;
+                    count += 1.0f;
 
-                state.elapsed += dt;
-                if (state.elapsed >= state.duration) {
-                    state.active = false; // 播放结束，转为静音
+                    state.elapsed += dt;
+                    if (state.elapsed >= state.duration) {
+                        state.active = false; // 播放结束，转为静音
+                    }
+                    if (count > 0.0f) {
+                        sample = sum / count;   // 简单平均混音
+                    } else {
+                        sample = 0.0f;          // 所有 voice 都静音
+                    }
                 }
-            } else {
-                // cout<<"当前没有在发声，静音"<<endl;
-                sample = 0.0f; // 当前没有在发声，静音
             }
         } else {
             // cout<<"没有 preset 数据，静音"<<endl;

@@ -21,6 +21,7 @@ public:
     // static void blockUntilSilence() ;
 
     static void trigger(const EnvHarmonics::EnvHar_preset& envHar_pre);
+    static void trigger(const std::vector<EnvHarmonics::EnvHar_preset>& pres);
 
     void stop();
 

@@ -165,6 +165,30 @@ float EnvHarmonics::synthesizeSample(
     return sum * envAmp;
 }
 
+float EnvHarmonics::synthesizeSample(
+    const std::vector<EnvHar_preset>& presets,
+    const float fundamentalFreq,
+    const float tSec
+) {
+    if (presets.empty()) return 0.0f;
+
+    float sum  = 0.0f;
+    float norm = 0.0f;
+
+    for (const auto& preset : presets) {
+        if (preset.harmonics.empty()) continue;
+
+        const float v = synthesizeSample(preset, fundamentalFreq, tSec);
+        sum  += v;
+        norm += 1.0f;
+    }
+
+    if (norm > 0.0f) {
+        sum /= norm;
+    }
+
+    return sum;
+}
 
 float EnvHarmonics::idealizationHarmonicFreq(const float f0, const int n, const float placeHolder) {
     const auto nn = static_cast<float>(n);

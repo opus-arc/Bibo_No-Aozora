@@ -99,6 +99,7 @@ public:
     EnvHarmonics(float f0, float dur, HarmonicType harTy, EnvelopeType envTy);
 
     static float synthesizeSample(const EnvHar_preset &preset, float fundamentalFreq, float tSec);
+    static float synthesizeSample(const std::vector<EnvHar_preset>& presets, float fundamentalFreq, float tSec);
 };
 
 

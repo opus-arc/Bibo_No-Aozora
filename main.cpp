@@ -9,13 +9,13 @@ int main() {
     RecordPlayer player;
     player.start();
 
-    const Pitch p(
+    const Pitch p1(
         "C4",
         1.0f,
         HarTy::SoftPiano,
         EnvTy::SingleNoteLinear
     );
-    p.play();
+    // p1.play();
 
     const Pitch p2(
         "G4",
@@ -23,15 +23,22 @@ int main() {
         HarTy::SoftPiano,
         EnvTy::SingleNoteLinear
     );
-    p2.play();
+    // p2.play();
 
     const Pitch p3(
-        "G4",
+        "A4",
         1.0f,
         HarTy::PureSine,
         EnvTy::None
     );
-    p3.play();
+    // p3.play();
+
+    std::vector<EnvHarmonics::EnvHar_preset> chord;
+    chord.push_back(p1.envHar.preset);
+    chord.push_back(p2.envHar.preset);
+    chord.push_back(p3.envHar.preset);
+
+    RecordPlayer::trigger(chord);
 
 
     player.stop();

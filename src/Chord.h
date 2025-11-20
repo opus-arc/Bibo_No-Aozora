@@ -8,7 +8,8 @@
 
 
 class Chord{
-
+public:
+    Chord(const Chord& chord);
 };
 
 
