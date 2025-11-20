@@ -3,6 +3,7 @@ project(Bibo_no-Aozora)
 
 set(CMAKE_CXX_STANDARD 20)
 
+
 add_executable(
         Bibo_no-Aozora main.cpp
         src/Pitch.cpp
@@ -16,4 +17,5 @@ add_executable(
         src/Chord.h
         src/EnvHarmonics.cpp
         src/EnvHarmonics.h
+
 )
