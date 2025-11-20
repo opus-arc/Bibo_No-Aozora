@@ -5,6 +5,7 @@
 #include "EnvHarmonics.h"
 
 #include <iostream>
+#include <cmath>
 #define PI 3.14159265358979323846f
 
 const EnvHarmonics::EnvHar_preset EnvHarmonics::HE_Preset_SoftPiano{
@@ -112,7 +113,7 @@ float EnvHarmonics::synthesizeSample(
 
         // 相位 = 2π f t
         const float phase = 2.0f * PI * f_n * tSec;
-        const float value = amp * std::sinf(phase);
+        const float value = amp * std::sin(phase);
 
         sum  += value;
         norm += rel;
