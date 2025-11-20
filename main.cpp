@@ -1,5 +1,5 @@
-#include "Src/Pitch.h"
-#include "Src/RecordPlayer.h"
+#include "src/Pitch.h"
+#include "src/RecordPlayer.h"
 
 
 using HarTy = EnvHarmonics::HarmonicType;

@@ -8,7 +8,7 @@ add_executable(
         Bibo_no-Aozora main.cpp
         src/Pitch.cpp
         src/Pitch.h
-        External/miniaudio.h
+        external/miniaudio.h
         src/RecordPlayer.cpp
         src/RecordPlayer.h
         src/SingleTrack.h
@@ -17,5 +17,4 @@ add_executable(
         src/Chord.h
         src/EnvHarmonics.cpp
         src/EnvHarmonics.h
-
 )
