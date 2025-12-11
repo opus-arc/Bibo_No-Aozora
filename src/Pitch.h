@@ -6,7 +6,7 @@
 #define NOTESPLAYER_PITCH_H
 
 #include <iostream>
-#include<string>
+#include <string>
 
 #include "EnvHarmonics.h"
 
@@ -39,6 +39,7 @@ public:
 
     void play() const;
 
+    static float getFrequency(const std::string& noteName);
 private:
     static bool noteName_formatCheck(const string &input_noteName);
 

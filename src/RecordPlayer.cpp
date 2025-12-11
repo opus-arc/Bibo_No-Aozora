@@ -28,9 +28,7 @@
 #define PI     3.14159265358979323846f
 #define E      2.71828182845904523536f
 
-
 std::vector<EnvHarmonics::EnvHar_preset> presets;
-
 
 RecordPlayer::RecordPlayer() {
     config = ma_device_config_init(ma_device_type_playback);
@@ -106,9 +104,8 @@ void RecordPlayer::trigger(const std::vector<EnvHarmonics::EnvHar_preset> &pres)
                 std::this_thread::sleep_for(std::chrono::milliseconds(10));
             }
 
-            // std::cout<<preset.state.frequency<<" "<<preset.state.phase<<"\n";
-        }
-
+        // std::cout<<preset.state.frequency<<" "<<preset.state.phase<<"\n";
+    }
 }
 
 void RecordPlayer::dataCallback(

@@ -48,6 +48,36 @@ const EnvHarmonics::EnvHar_preset EnvHarmonics::HE_Preset_Pure_Sine{
     .envelopeFn = nullptr
 };
 
+const EnvHarmonics::EnvHar_preset EnvHarmonics::HE_Preset_Cello {
+    .stringPhysicalParams = {
+        2.0e-5f,
+        0.4f
+    },
+
+    .envelope = {
+        0.0f,    // 占位符
+        0.20f,   // 慢起音
+        0.10f,   // Decay
+        0.90f,   // Sustain
+        0.40f    // 长尾音
+    },
+
+    .harmonics = {
+                {1, 1.00f, 1.0f, 0.0f},
+                {2, 0.82f, 1.0f, 0.5f},
+                {3, 0.47f, 1.2f, -0.5f},
+                {4, 0.20f, 1.5f, 0.8f},
+                {5, 0.22f, 1.8f, -0.8f},
+                {6, 0.24f, 2.0f, 1.0f},
+                {7, 0.16f, 3.0f, -1.2f},
+                {8, 0.10f, 5.0f, 1.5f},
+                {12,0.05f, 8.0f, 0.0f}
+    },
+
+    .harFreqCalculate = &EnvHarmonics::pianoHarmonicFreq,
+    .envelopeFn = &EnvHarmonics::adsr_singleNoteLinear,
+
+};
 
 EnvHarmonics::EnvHarmonics(const float f0, const float dur, HarmonicType harTy,
                            EnvelopeType envTy) : fundamentalFre(f0) {
@@ -76,7 +106,7 @@ EnvHarmonics::EnvHarmonics(const float f0, const float dur, HarmonicType harTy,
         preset.envelope.duration = dur;
         std::cout << "Usage : EnvHarmonics default preset" << std::endl;
     }
-};
+}
 
 float EnvHarmonics::synthesizeSample(
     const EnvHar_preset &preset,
@@ -109,7 +139,6 @@ float EnvHarmonics::synthesizeSample(
         if (envAmp <= 0.0f)
             return 0.0f;
     }
-
 
     // 检查弦的物理参数
     // NOLINTNEXTLINE

@@ -17,4 +17,6 @@ add_executable(
         src/Chord.h
         src/EnvHarmonics.cpp
         src/EnvHarmonics.h
+        src/CelloDynamic.cpp
+        src/CelloDynamic.h
 )
