@@ -88,7 +88,7 @@ int main() {
 
     RecordPlayer::trigger(chord);
 
-    CelloDynamic::play("G2", 0.15f);
+    CelloDynamic::play("G1", 0.15f);
     CelloDynamic::play("D2", 0.09f);
     CelloDynamic::play("B2", 0.09f);
     CelloDynamic::play("A2", 0.132f);
@@ -96,7 +96,17 @@ int main() {
     CelloDynamic::play("D2", 0.09f);
     CelloDynamic::play("B2", 0.13f);
     CelloDynamic::play("D2", 0.173f);
-    CelloDynamic::play("G2", 0.132f);
+
+    CelloDynamic::play("G1", 0.15f);
+    CelloDynamic::play("D2", 0.09f);
+    CelloDynamic::play("B2", 0.09f);
+    CelloDynamic::play("A2", 0.132f);
+    CelloDynamic::play("B2", 0.09f);
+    CelloDynamic::play("D2", 0.09f);
+    CelloDynamic::play("B2", 0.13f);
+    CelloDynamic::play("D2", 0.173f);
+
+    CelloDynamic::play("G1", 0.132f);
     CelloDynamic::play("E2", 0.073f);
     CelloDynamic::play("C3", 0.083f);
     CelloDynamic::play("B2", 0.13f);
@@ -104,6 +114,107 @@ int main() {
     CelloDynamic::play("E2", 0.13f);
     CelloDynamic::play("C3", 0.073f);
     CelloDynamic::play("E2", 0.23f);
+
+    CelloDynamic::play("G1", 0.132f);
+    CelloDynamic::play("E2", 0.073f);
+    CelloDynamic::play("C3", 0.083f);
+    CelloDynamic::play("B2", 0.13f);
+    CelloDynamic::play("C3", 0.071f);
+    CelloDynamic::play("E2", 0.13f);
+    CelloDynamic::play("C3", 0.073f);
+    CelloDynamic::play("E2", 0.23f);
+
+    CelloDynamic::play("G1", 0.132f);
+    CelloDynamic::play("F#2", 0.073f);
+    CelloDynamic::play("C3", 0.083f);
+    CelloDynamic::play("B2", 0.13f);
+    CelloDynamic::play("C3", 0.071f);
+    CelloDynamic::play("F#2", 0.13f);
+    CelloDynamic::play("C3", 0.073f);
+    CelloDynamic::play("F#2", 0.23f);
+
+    CelloDynamic::play("G1", 0.132f);
+    CelloDynamic::play("F#2", 0.073f);
+    CelloDynamic::play("C3", 0.083f);
+    CelloDynamic::play("B2", 0.13f);
+    CelloDynamic::play("C3", 0.071f);
+    CelloDynamic::play("F#2", 0.13f);
+    CelloDynamic::play("C3", 0.073f);
+    CelloDynamic::play("F#2", 0.23f);
+
+    CelloDynamic::play("G2", 0.132f);
+    CelloDynamic::play("G3", 0.073f);
+    CelloDynamic::play("B2", 0.083f);
+    CelloDynamic::play("A2", 0.13f);
+    CelloDynamic::play("B2", 0.071f);
+    CelloDynamic::play("G2", 0.13f);
+    CelloDynamic::play("B2", 0.073f);
+    CelloDynamic::play("G2", 0.23f);
+
+    CelloDynamic::play("G1", 0.132f);
+    CelloDynamic::play("G2", 0.073f);
+    CelloDynamic::play("B2", 0.083f);
+    CelloDynamic::play("A2", 0.13f);
+    CelloDynamic::play("B2", 0.071f);
+    CelloDynamic::play("G2", 0.13f);
+    CelloDynamic::play("B2", 0.073f);
+    CelloDynamic::play("F#2", 0.23f);
+
+    CelloDynamic::play("G1", 0.132f);
+    CelloDynamic::play("E2", 0.073f);
+    CelloDynamic::play("B2", 0.083f);
+    CelloDynamic::play("A2", 0.13f);
+    CelloDynamic::play("B2", 0.071f);
+    CelloDynamic::play("G2", 0.13f);
+    CelloDynamic::play("F#2", 0.073f);
+    CelloDynamic::play("G2", 0.23f);
+
+    CelloDynamic::play("E2", 0.132f);
+    CelloDynamic::play("G2", 0.073f);
+    CelloDynamic::play("F#2", 0.083f);
+    CelloDynamic::play("G2", 0.13f);
+    CelloDynamic::play("B1", 0.071f);
+    CelloDynamic::play("D2", 0.13f);
+    CelloDynamic::play("C#2", 0.073f);
+    CelloDynamic::play("B1", 0.23f);
+
+    CelloDynamic::play("C#2", 0.073f);
+    CelloDynamic::play("G2", 0.23f);
+    CelloDynamic::play("A2", 0.083f);
+    CelloDynamic::play("G2", 0.13f);
+    CelloDynamic::play("A2", 0.083f);
+    CelloDynamic::play("G2", 0.13f);
+    CelloDynamic::play("A2", 0.083f);
+    CelloDynamic::play("G2", 0.13f);
+
+    CelloDynamic::play("C#2", 0.073f);
+    CelloDynamic::play("G2", 0.13f);
+    CelloDynamic::play("A2", 0.083f);
+    CelloDynamic::play("G2", 0.13f);
+    CelloDynamic::play("A2", 0.083f);
+    CelloDynamic::play("G2", 0.073f);
+    CelloDynamic::play("A2", 0.083f);
+    CelloDynamic::play("G2", 0.13f);
+
+    CelloDynamic::play("F#2", 0.132f);
+    CelloDynamic::play("A2", 0.073f);
+    CelloDynamic::play("D3", 0.053f);
+    CelloDynamic::play("C#3", 0.073f);
+    CelloDynamic::play("D3", 0.051f);
+    CelloDynamic::play("A2", 0.13f);
+    CelloDynamic::play("G2", 0.073f);
+    CelloDynamic::play("A2", 0.23f);
+
+    CelloDynamic::play("F#2", 0.132f);
+    CelloDynamic::play("A2", 0.073f);
+    CelloDynamic::play("G2", 0.083f);
+    CelloDynamic::play("A2", 0.13f);
+    CelloDynamic::play("D2", 0.071f);
+    CelloDynamic::play("F#2", 0.13f);
+    CelloDynamic::play("E2", 0.073f);
+    CelloDynamic::play("D2", 0.23f);
+
+    CelloDynamic::play("E1", 0.73f);
 
     this_thread::sleep_for(chrono::milliseconds(1000));
 
