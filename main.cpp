@@ -10,28 +10,29 @@ int main() {
     player.start();
 
     const Pitch p1(
-        "C4",
-        1.0f,
+        "G4",
+        2.0f,
         HarTy::SoftPiano,
         EnvTy::SingleNoteLinear
     );
-    // p1.play();
+    p1.play();
 
     const Pitch p2(
-        "G4",
-        1.0f,
+        "B4",
+        2.0f,
         HarTy::SoftPiano,
         EnvTy::SingleNoteLinear
     );
-    // p2.play();
+    p2.play();
+
 
     const Pitch p3(
-        "A4",
-        1.0f,
-        HarTy::PureSine,
-        EnvTy::None
+        "D5",
+        2.0f,
+        HarTy::SoftPiano,
+        EnvTy::SingleNoteLinear
     );
-    // p3.play();
+    p3.play();
 
     std::vector<EnvHarmonics::EnvHar_preset> chord;
     chord.push_back(p1.envHar.preset);

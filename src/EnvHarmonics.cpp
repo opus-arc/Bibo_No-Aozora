@@ -16,18 +16,18 @@ const EnvHarmonics::EnvHar_preset EnvHarmonics::HE_Preset_SoftPiano{
     },
     .envelope = {
         0, // dur 占位符
-        0.007,
+        0.02,
         0.3,
         0.6,
         0.8
     },
     .harmonics = {
         {1, 1.00, 1.0, 0.0}, // 基频，比较慢衰减
-        {2, 0.60, 2.0, 1.0}, // 高次稍弱
-        {3, 0.40, 6.0, -2.0},
-        {4, 0.25, 4.0, 3.0},
-        {5, 0.18, 5.0, -4.0},
-        {6, 0.12, 6.0, 2.0},
+        {2, 0.60, 2.0, 2.0}, // 高次稍弱
+        {3, 0.45, 6.0, -4.0},
+        {4, 0.15, 4.0, 6.0},
+        {5, 0.18, 5.0, -8.0},
+        {6, 0.02, 6.0, 4.0}
     },
     .harFreqCalculate = &EnvHarmonics::pianoHarmonicFreq,
     .envelopeFn = &EnvHarmonics::adsr_singleNoteLinear
@@ -77,6 +77,71 @@ EnvHarmonics::EnvHarmonics(const float f0, const float dur, HarmonicType harTy,
         std::cout << "Usage : EnvHarmonics default preset" << std::endl;
     }
 };
+
+
+// 如果你的工程已经有 PI 定义可以删掉这一行
+constexpr float JIT_PI = 3.14159265358979323846f;
+
+/*
+ * 返回值：抖动后的频率（乘法偏移）
+ *
+ * 参数：
+ * - baseFreq: 经 detune 等静态处理后的谐波基频（Hz）
+ * - harmonicIndex: 谐波序号 n（从 1 开始）
+ * - tSec: 当前时间（秒）
+ * - globalSigma: 全局抖动强度（相对值），例如 0.001f 表示约 ±0.1% 频率偏移
+ * - harmonicJitterScale: 随谐波级数增长的放大系数，例如 0.02f
+ * - lfoFreqs: 指向一组 LFO 基频（Hz），用来叠加成平滑抖动
+ * - numLFOs: lfoFreqs 数量
+ *
+ * 说明：函数使用若干固定低频正弦（LFO）叠加并对相位引入与谐波序号相关的伪随机初相，
+ *       因此同一谐波在不同时间点轨迹可复现；且不需要在外部保存状态。
+ */
+const float jitterLFOs[3] = {0.18f, 0.41f, 0.73f}; // Hz
+inline float applyJitterByLFOS(
+    float baseFreq,
+    int harmonicIndex,
+    float tSec,
+    float globalSigma,
+    float harmonicJitterScale,
+    const float *lfoFreqs,
+    int numLFOs
+) {
+    if (numLFOs <= 0 || lfoFreqs == nullptr) return baseFreq;
+
+    // 简单整数哈希 -> [0,1) -> * 2π，生成可复现的初相
+    auto pseudoPhase = [](int key, int idx) -> float {
+        unsigned int x = static_cast<unsigned int>(key);
+        x = (x ^ 61u) ^ (x >> 16);
+        x = x + (x << 3);
+        x = x ^ (x >> 4);
+        x = x * 0x27d4eb2d;
+        x = x ^ (x >> 15);
+        x ^= static_cast<unsigned int>(idx * 0x9e3779b9u);
+        const float v = static_cast<float>(x & 0xFFFFFFu) / static_cast<float>(0x1000000u); // [0,1)
+        return v * 2.0f * JIT_PI;
+    };
+
+    // 叠加多个低频正弦，产生平滑抖动（近似滤波白噪）
+    float acc = 0.0f;
+    for (int i = 0; i < numLFOs; ++i) {
+        // 可以微微依赖谐波序号避免所有谐波完全同步
+        float lfoFreq = lfoFreqs[i] * (1.0f + 0.03f * static_cast<float>(harmonicIndex));
+        float phi0 = pseudoPhase(harmonicIndex, i);
+        acc += std::sinf(2.0f * JIT_PI * lfoFreq * tSec + phi0);
+    }
+
+    // 归一化到大致 [-1,1]（numLFOs 个正弦的平均）
+    acc /= static_cast<float>(numLFOs);
+
+    // 抖动幅度按谐波数放大（常见：高次谐波更不稳定）
+    const float sigma = globalSigma * (1.0f + harmonicJitterScale * static_cast<float>(harmonicIndex));
+
+    // multiplicative 抖动（1 + δ），δ 在大约 ±sigma 范围
+    float delta = acc * sigma;
+
+    return baseFreq * (1.0f + delta);
+}
 
 float EnvHarmonics::synthesizeSample(
     const EnvHar_preset &preset,
@@ -142,6 +207,17 @@ float EnvHarmonics::synthesizeSample(
             f_n *= ratio;
         }
 
+
+        // 调用频率抖动模块
+        f_n = applyJitterByLFOS(
+            f_n,
+            n, tSec,
+            0.002f,
+            0.02f,
+            jitterLFOs,
+            3
+        );
+
         // 谐波自己的时间衰减
         const float harmonicEnv = (damp > 0.0f)
                                       ? std::exp(-damp * tSec)
@@ -165,21 +241,22 @@ float EnvHarmonics::synthesizeSample(
     return sum * envAmp;
 }
 
+
 float EnvHarmonics::synthesizeSample(
-    const std::vector<EnvHar_preset>& presets,
+    const std::vector<EnvHar_preset> &presets,
     const float fundamentalFreq,
     const float tSec
 ) {
     if (presets.empty()) return 0.0f;
 
-    float sum  = 0.0f;
+    float sum = 0.0f;
     float norm = 0.0f;
 
-    for (const auto& preset : presets) {
+    for (const auto &preset: presets) {
         if (preset.harmonics.empty()) continue;
 
         const float v = synthesizeSample(preset, fundamentalFreq, tSec);
-        sum  += v;
+        sum += v;
         norm += 1.0f;
     }
 
