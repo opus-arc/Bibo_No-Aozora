@@ -12,7 +12,6 @@
 
 class EnvHarmonics {
 public:
-
     float fundamentalFre{};
 
     // Harmonics ----------------------------------------
@@ -20,7 +19,8 @@ public:
     // -------Structs---------
     enum HarmonicType {
         PureSine,
-        SoftPiano
+        SoftPiano,
+        Cello
     };
 
     struct SingleHar {
@@ -48,7 +48,8 @@ public:
     // -------Structs---------
     enum EnvelopeType {
         None,
-        SingleNoteLinear
+        SingleNoteLinear,
+        CelloADSR
     };
     struct Envelope {
         float duration;
@@ -64,7 +65,7 @@ public:
     EnvelopeFn customFun = nullptr;
 
     static float adsr_singleNoteLinear(float t, float duration, float attack, float decay,
-                                       float sustainLvl, float release);
+                                        float sustainLvl, float release);
 
     // EnvHarmonics ------------------------------------
     struct RuntimeState {
@@ -88,10 +89,12 @@ public:
 
     static const EnvHar_preset HE_Preset_SoftPiano;
     static const EnvHar_preset HE_Preset_Pure_Sine;
+    static const EnvHar_preset HE_Preset_Cello;
 
     std::map<EnvHarKey, EnvHar_preset> HE_Preset_Map = {
         {{PureSine, None}, HE_Preset_Pure_Sine},
-        {{SoftPiano, SingleNoteLinear}, HE_Preset_SoftPiano}
+        {{SoftPiano, SingleNoteLinear}, HE_Preset_SoftPiano},
+        {{Cello, CelloADSR}, HE_Preset_Cello}
     };
 
     EnvHar_preset preset;
@@ -101,6 +104,5 @@ public:
     static float synthesizeSample(const EnvHar_preset &preset, float fundamentalFreq, float tSec);
     static float synthesizeSample(const std::vector<EnvHar_preset>& presets, float fundamentalFreq, float tSec);
 };
-
 
 #endif //BIBO_NO_AOZORA_HARMONIC_H

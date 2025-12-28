@@ -11,7 +11,6 @@
 #include "RecordPlayer.h"
 using namespace std;
 
-
 void Pitch::play() const {
     RecordPlayer::trigger(envHar.preset);
 }
@@ -113,3 +112,14 @@ Pitch::Pitch(
 
 
 Pitch::Pitch(const Pitch &input_pitch) = default;
+
+float Pitch::getFrequency(const std::string& noteName) {
+
+    if (!noteName_formatCheck(noteName)) {
+        return 0.0f;
+    }
+
+    int midi = nameToMidi(noteName);
+
+    return midiToFrequency(midi);
+}
