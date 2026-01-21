@@ -6,17 +6,19 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(
         Bibo_no-Aozora main.cpp
-        src/Pitch.cpp
-        src/Pitch.h
+        SpectralLoom/Pitch.cpp
+        SpectralLoom/Pitch.h
         external/miniaudio.h
-        src/RecordPlayer.cpp
-        src/RecordPlayer.h
-        src/SingleTrack.h
-        src/SingleTrack.cpp
-        src/Chord.cpp
-        src/Chord.h
-        src/EnvHarmonics.cpp
-        src/EnvHarmonics.h
-        src/CelloDynamic.cpp
-        src/CelloDynamic.h
+        SpectralLoom/RecordPlayer.cpp
+        SpectralLoom/RecordPlayer.h
+        SpectralLoom/SingleTrack.h
+        SpectralLoom/SingleTrack.cpp
+        SpectralLoom/Chord.cpp
+        SpectralLoom/Chord.h
+        SpectralLoom/EnvHarmonics.cpp
+        SpectralLoom/EnvHarmonics.h
+        SpectralLoom/CelloDynamic.cpp
+        SpectralLoom/CelloDynamic.h
+        SSP_MMC/SSP_MMC.cpp
+        SSP_MMC/SSP_MMC.h
 )
