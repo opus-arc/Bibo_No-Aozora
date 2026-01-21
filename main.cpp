@@ -1,6 +1,6 @@
-#include "src/RecordPlayer.h"
-#include "src/Pitch.h"
-#include "src/CelloDynamic.h"
+#include "SpectralLoom/RecordPlayer.h"
+#include "SpectralLoom/Pitch.h"
+#include "SpectralLoom/CelloDynamic.h"
 #include <iostream>
 #include <thread>
 #include <vector>
