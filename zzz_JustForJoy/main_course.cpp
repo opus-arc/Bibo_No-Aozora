@@ -1,5 +1,3 @@
-// piano_demo.cpp
-// 生成几个“钢琴味”较强的 .wav 文件：柔和单音 / 明亮单音 / C 大三和弦
 
 #include <cmath>
 #include <cstdint>
@@ -176,7 +174,7 @@ std::vector<int16_t> renderPiano(
 
 // ----------------- 主程序：三个例子 -----------------
 
-int main() {
+int _main() {
     // 例子一：柔和钢琴 C4
     {
         std::vector<Harmonic> softHarmonics = {

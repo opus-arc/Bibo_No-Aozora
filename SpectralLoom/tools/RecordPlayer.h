@@ -7,7 +7,7 @@
 
 
 #include "Pitch.h"
-#include "../external/miniaudio.h"
+#include "../../external/miniaudio.h"
 
 
 class RecordPlayer{
