@@ -1,5 +1,3 @@
-
-
 #include "SSP_MMC/SSP_MMC.h"
 #include<iostream>
 
