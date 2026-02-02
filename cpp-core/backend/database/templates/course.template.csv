@@ -1,0 +1,8 @@
+name, type,range, note
+id,VARCHAR,,对象id
+name,VARCHAR,,对象名称
+note,VARCHAR,,对象说明
+pid,VARCHAR,,对象上级id
+pname,VARCHAR,,对象上级名称
+basicDifficulty,INT,"[1,18]",对象难度兜底
+isLeaf,BOOLEAN,,是否为末节点

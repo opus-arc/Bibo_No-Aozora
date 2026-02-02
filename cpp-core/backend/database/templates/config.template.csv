@@ -1,0 +1,4 @@
+name, type,range, note
+name,VARCHAR,,配置名称
+value,VARCHAR,,值
+pname,VARCHAR,,父名称

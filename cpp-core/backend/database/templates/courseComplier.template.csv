@@ -1,0 +1,13 @@
+name, type,range, note
+id,VARCHAR,,对象id
+name,VARCHAR,,对象名称
+note,VARCHAR,,对象说明
+pid,VARCHAR,,对象上级id
+pname,VARCHAR,,对象上级名称
+basicDifficulty,INT,"[1,18]",对象难度兜底
+isLeaf,BOOLEAN,,是否为末节点
+d0,INT,"[1,18]",难度初始值
+h0,DOUBLE,"[0,360]",初始半衰期
+ivl,INT,"[0,360]",遗忘间隔 ssp-mmc
+cost,DOUBLE,"[0,)",复习成本 ssp-mmc
+recall,DOUBLE,"[0,1]",记忆概率 ssp-mmc

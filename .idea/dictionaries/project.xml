@@ -5,6 +5,12 @@
       <w>adsr</w>
       <w>asds</w>
       <w>comprehensiveexamination</w>
+      <w>databasechecker</w>
+      <w>databasetemplate</w>
+      <w>datainitializer</w>
+      <w>dataprocesser</w>
+      <w>duckdbcompiler</w>
+      <w>masterscheduler</w>
       <w>pitchmemory</w>
       <w>pitchs</w>
       <w>soundconfig</w>

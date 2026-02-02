@@ -1,0 +1,4 @@
+name, type,range, note
+id,VARCHAR,,用户id
+name,VARCHAR,,用户名
+registration_date,TIMESTAMP,,注册日期

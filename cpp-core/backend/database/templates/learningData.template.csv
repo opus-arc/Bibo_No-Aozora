@@ -1,0 +1,13 @@
+name, type,range, note
+id,VARCHAR,,对象id
+note,VARCHAR,,对象说明
+d0,INT,"[1,18]",难度初始
+d1,INT,"[1,18]",难度初始
+h0,DOUBLE,"[0,360]",初始半衰期
+h1,DOUBLE,"[0,360]",初始半衰期
+outcome_option,VARCHAR,,
+outcome_data,BOOLEAN,,回答结果结合信任度转译的数据
+review_date,TIMESTAMP,,认识、复习的时间
+ivl,INT,"[0,360]",遗忘间隔 ssp-mmc
+cost,DOUBLE,"[0,)",复习成本 ssp-mmc
+recall,DOUBLE,"[0,1]",记忆概率 ssp-mmc
