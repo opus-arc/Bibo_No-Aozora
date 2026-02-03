@@ -10,21 +10,35 @@
 
 
 DataInitializer::DataInitializer() {
-    std::cout << "\n[DataInitializer]: " << "数据初始化开始！" << std::endl;
+    try {
+        std::cout << "\n[DataInitializer]: " << "数据初始化开始！" << std::endl;
 
-    // 初次编译 course 表，算出重要的启动数据
-    std::cout << "[DataInitializer]: " << "初次编译 course 表，算出重要的启动数据" << std::endl;
-    courseComplier();
+        // 清空 courseComplierTable 确保是空的 course 的计算容器
+        std::cout << "[DataInitializer]: " << "清空 courseComplierTable, 确保是空的 course 的计算容器" << std::endl;
+        clearCourseComplierTable();
 
-    // 初次检查 learningData 表，合并 courseComplier 可能存在的新数据
-    std::cout << "[DataInitializer]: " << "初次检查 learningData 表，合并 courseComplier 可能存在的新数据" << std::endl;
-    learningDataInitializer();
+        // 初次编译 course 表，算出重要的启动数据
+        std::cout << "[DataInitializer]: " << "初次编译 course 表，算出重要的启动数据" << std::endl;
+        courseComplier();
 
-    // 导出所有初始化成功的数据库表
-    std::cout << "[DataInitializer]: " << "导出所有初始化成功的数据库表" << std::endl;
-    export_all_tables_to_csvs();
+        // 初次检查 learningData 表，合并 courseComplier 可能存在的新数据
+        std::cout << "[DataInitializer]: " << "初次检查 learningData 表，合并 courseComplier 可能存在的新数据" << std::endl;
+        learningDataInitializer();
 
-    std::cout << "[DataInitializer]: " << "数据初始化结束！" << std::endl;
+        // 导出所有初始化成功的数据库表
+        std::cout << "[DataInitializer]: " << "导出所有初始化成功的数据库表" << std::endl;
+        export_all_tables_to_csvs();
+
+        // 创建或检查今日表
+        std::cout << "[DataInitializer]: " << "创建或检查今日表" << std::endl;
+        if (!is_empty(todayCsvChecker()))
+            selectTodayCards();
+
+        std::cout << "[DataInitializer]: " << "数据初始化结束！" << std::endl;
+
+    }catch (const std::exception& e) {
+        std::cout << "[DataInitializer]: " << e.what() << std::endl;
+    }
 }
 
 DataInitializer::~DataInitializer() = default;
@@ -182,10 +196,22 @@ void DataInitializer::courseComplier() {
     }
 }
 
-// 初次检查 user 表，合并 courseComplier 的数据
+// 清空 courseComplier 确保是空的 course 的计算容器
+void DataInitializer::clearCourseComplierTable() {
+
+    const auto res = databaseDB_2_con.Query(R"SQL(
+        TRUNCATE TABLE courseComplier;
+    )SQL");
+    if (!res || res->HasError()) {
+        std::cout << "初始化 courseComplier 失败" << res->GetError() << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
+}
+
+// 初次检查 learningData 表，合并 courseComplier 的数据
 void DataInitializer::learningDataInitializer() {
-    auto result = databaseDB_2_con.Query(R"SQL(
-        INSERT INTO "history" (id, note, d1, h1, ivl, cost, recall)
+    const auto result = databaseDB_2_con.Query(R"SQL(
+        INSERT INTO "learningData" (id, note, d1, h1, ivl, cost, recall)
         SELECT
             c.id,
             c.note,
@@ -196,25 +222,24 @@ void DataInitializer::learningDataInitializer() {
             c.recall
         FROM courseComplier c
         WHERE c.isLeaf = true
-          AND NOT EXISTS (
-              SELECT 1
-              FROM "history" h
-              WHERE h.id = c.id
-          );
-    )SQL"
-    );
-}
-
-// 导出所有初始化成功的数据库表
-bool DataInitializer::export_all_tables_to_csvs() {
-    for (const auto &csv_file_path: DatabaseChecker::list_data_csv_files(GENERATED_FOLDER_PATH)) {
-        std::string tableName = std::filesystem::path(csv_file_path).stem().stem().string();
-        if (!export_table_to_csv(tableName, csv_file_path))
-            throw std::runtime_error("导出所有初始化成功的数据库表失败！");
+        ON CONFLICT (id) DO UPDATE SET
+            note   = EXCLUDED.note,
+            d1     = EXCLUDED.d1,
+            h1     = EXCLUDED.h1,
+            ivl    = EXCLUDED.ivl,
+            cost   = EXCLUDED.cost,
+            recall = EXCLUDED.recall
+        WHERE
+            learningData.note IS DISTINCT FROM EXCLUDED.note
+            OR learningData.d1 IS DISTINCT FROM EXCLUDED.d1;
+    )SQL");
+    if (!result || result->HasError()) {
+        std::cout << "交集合并 courseComplier 与 learningData 失败" << result->GetError() << std::endl;
+        std::exit(EXIT_FAILURE);
     }
-    return true;
 }
 
+// 导出一张表的工具
 bool DataInitializer::export_table_to_csv(const std::string &table_name,
                                           const std::string &csv_path) {
     const std::string sql =
@@ -238,6 +263,110 @@ bool DataInitializer::export_table_to_csv(const std::string &table_name,
 
     return true;
 }
+
+// 导出所有初始化成功的数据库表
+bool DataInitializer::export_all_tables_to_csvs() {
+    for (const auto &csv_file_path: DatabaseChecker::list_data_csv_files(GENERATED_FOLDER_PATH)) {
+        std::string tableName = std::filesystem::path(csv_file_path).stem().stem().string();
+        if (!export_table_to_csv(tableName, csv_file_path))
+            throw std::runtime_error("导出所有初始化成功的数据库表失败！");
+    }
+    return true;
+}
+
+// “260203” 转化为"2026-02-03-Tue"
+std::string yymmdd_to_full_date(const std::string& yymmdd) {
+    if (yymmdd.size() != 6) {
+        throw std::invalid_argument("日期格式必须是 YYMMDD");
+    }
+
+    int yy = std::stoi(yymmdd.substr(0, 2));
+    int mm = std::stoi(yymmdd.substr(2, 2));
+    int dd = std::stoi(yymmdd.substr(4, 2));
+
+    std::tm tm{};
+    tm.tm_year = 2000 + yy - 1900; // tm_year 从 1900 开始
+    tm.tm_mon  = mm - 1;           // tm_mon 从 0 开始
+    tm.tm_mday = dd;
+    tm.tm_hour = 12;               // 避免 DST 边界问题
+
+    // 让系统计算 weekday
+    if (std::mktime(&tm) == -1) {
+        throw std::runtime_error("非法日期");
+    }
+
+    static const char* kWeekday[] = {
+        "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+    };
+
+    std::ostringstream oss;
+    oss << (2000 + yy) << "-"
+        << std::setw(2) << std::setfill('0') << mm << "-"
+        << std::setw(2) << std::setfill('0') << dd << "-"
+        << kWeekday[tm.tm_wday];
+
+    return oss.str();
+}
+
+// 获取今天或者虚拟时间 YY-MM-DD_Weekday(英文缩写)
+std::string get_date_tag() {
+    std::time_t t = std::time(nullptr);
+    std::tm tm{};
+
+#if defined(_WIN32)
+    localtime_s(&tm, &t);
+#else
+    localtime_r(&t, &tm);
+#endif
+
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%Y-%m-%d-%a");
+
+    if constexpr (VIRTUAL_DATE_TEST_SWITCH) {
+        return yymmdd_to_full_date(VIRTUAL_DATE);
+    }else {
+        return oss.str();
+    }
+
+}
+
+// 检查今日表
+std::filesystem::path DataInitializer::todayCsvChecker() {
+    const std::string todayCsvOriginalPathStr = std::string(GENERATED_FOLDER_PATH) + "/todayCards.csv";
+    const std::string todayCsvPathStr = HISTORY_PATH + get_date_tag() + ".csv";
+
+    const std::filesystem::path todayCsvOriginalPath(todayCsvOriginalPathStr);
+    const std::filesystem::path todayCsvPath(todayCsvPathStr);
+
+    // 先检查是否已经有今日表了
+    if (std::filesystem::exists(todayCsvPathStr)) {
+        std::cout << "[DataInitializer]: 已检测到今日表" << std::endl;
+        return todayCsvPath;
+    } else {
+        std::cout << "[DataInitializer]: 未检测到今日表，立即创建" << std::endl;
+        // 先检查模版生成的文件
+        if (!std::filesystem::exists(todayCsvOriginalPath))
+            throw std::runtime_error("今日表原文件不存在");
+
+        // std::filesystem::rename(todayCsvOriginalPath, todayCsvPathStr);
+        std::filesystem::copy_file(
+            todayCsvOriginalPath,
+            todayCsvPath,
+            std::filesystem::copy_options::overwrite_existing
+        );
+        return todayCsvPath;
+    }
+}
+
+// 决定今日表的内容
+void DataInitializer::selectTodayCards() {
+    auto res = databaseDB_2_con.Query(R"SQL(
+        SELECT
+
+    )SQL");
+}
+
+
 
 
 

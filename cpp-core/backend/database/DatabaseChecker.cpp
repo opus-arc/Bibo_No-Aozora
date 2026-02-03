@@ -101,10 +101,6 @@ static std::string strip_suffix(const std::string &s, const std::string &suffix)
  */
 std::vector<std::string> list_template_csv_files(const std::string &dir);
 
-/**
- * 清空 courseComplier 确保是空的 course 的计算容器
- */
-void clearCourseComplierCSV();
 
 // ----------------------------------- 具体功能实现 -------------------------------------------
 
@@ -118,10 +114,6 @@ DatabaseChecker::DatabaseChecker() {
         // 确保数据库作为空的 csv 操作容器
         std::cout << "[DatabaseChecker]: " << "确保数据库作为空的 csv 操作容器" << std::endl;
         clearDatabase();
-
-        // 清空 courseComplier 确保是空的 course 的计算容器
-        // std::cout << "[DatabaseChecker]: " << "清空 courseComplier 确保是空的 course 的计算容器" << std::endl;
-        // // clearCourseComplierCSV();
 
         // templates generated manaul 文件夹的存在性检查
         std::cout << "[DatabaseChecker]: " << "templates generated manaul 文件夹的存在性检查" << std::endl;
@@ -170,21 +162,32 @@ void DatabaseChecker::clearDatabase() {
     const auto tables = databaseDB_con.Query(R"SQL(
         SELECT table_schema, table_name
         FROM information_schema.tables
-        WHERE table_schema IN ('main')
-          AND table_type='BASE TABLE'
+        WHERE table_schema = 'main'
+          AND table_type = 'BASE TABLE'
         ORDER BY table_schema, table_name;
     )SQL");
 
     if (!tables || tables->HasError()) {
-        throw std::runtime_error("list tables failed: " + (tables ? tables->GetError() : "null"));
+        throw std::runtime_error(
+            "list tables failed: " +
+            (tables ? tables->GetError() : "null")
+        );
     }
 
     for (duckdb::idx_t i = 0; i < tables->RowCount(); ++i) {
-        std::string t = tables->GetValue(0, i).ToString();
-        auto drop = databaseDB_con.Query("DROP TABLE IF EXISTS " + t + ";");
+        const std::string schema = tables->GetValue(0, i).ToString();
+        const std::string table = tables->GetValue(1, i).ToString();
+
+        const std::string sql =
+                "DROP TABLE IF EXISTS \"" + schema + "\".\"" += table + "\";";
+
+        const auto drop = databaseDB_con.Query(sql);
+
         if (!drop || drop->HasError()) {
-            throw std::runtime_error("drop table failed for " + t + ": " +
-                                     (drop ? drop->GetError() : "null"));
+            throw std::runtime_error(
+                "drop table failed for " + schema + "." += table + ": " +
+                (drop ? drop->GetError() : "null")
+            );
         }
     }
 }
@@ -239,12 +242,16 @@ void DatabaseChecker::templatesComplier(const std::string &template_table_name, 
 
     std::string ddl = "CREATE OR REPLACE TABLE " + base_ident + " (\n";
 
+    bool has_primary_key = false;
+
     for (duckdb::idx_t i = 0; i < res->RowCount(); ++i) {
         std::string col_name = trim(res->GetValue(0, i).ToString());
         std::string col_type = trim(res->GetValue(1, i).ToString());
 
         std::string col_range;
-        if (auto v_range = res->GetValue(2, i); !v_range.IsNull()) col_range = trim(v_range.ToString());
+        if (auto v_range = res->GetValue(2, i); !v_range.IsNull()) {
+            col_range = trim(v_range.ToString());
+        }
 
         if (col_name.empty() || col_type.empty()) {
             throw std::runtime_error("模板表(" + template_table_name + ") 第 " +
@@ -253,8 +260,15 @@ void DatabaseChecker::templatesComplier(const std::string &template_table_name, 
 
         std::string col_ident = quote_ident_if_needed(col_name);
 
-        ddl += "  " + col_ident + " " += col_type;
+        ddl += "  " + col_ident + " " + col_type;
 
+        // ⭐ 自动主键
+        if (!has_primary_key && col_name == "id") {
+            ddl += " PRIMARY KEY";
+            has_primary_key = true;
+        }
+
+        // CHECK 约束
         if (auto chk = range_to_check(col_ident, col_range); chk.has_value()) {
             ddl += " CHECK (" + chk.value() + ")";
         }
@@ -539,19 +553,4 @@ static std::string strip_suffix(const std::string &s, const std::string &suffix)
         return s.substr(0, s.size() - suffix.size());
     }
     return s; // 不匹配就原样返回（也可以改成抛错）
-}
-
-// 清空 courseComplier 确保是空的 course 的计算容器
-void clearCourseComplierCSV() {
-    const std::string path = COURSE_COMPLIER_PATH;
-
-    std::ofstream ofs(path, std::ios::out | std::ios::trunc);
-    if (!ofs.is_open()) {
-        throw std::runtime_error("无法清空 CSV 文件: " + path);
-    }
-
-    // 可选：如果你希望保留表头，可以在这里重新写 header
-    // ofs << "id,ivl,cost,recall\n";
-
-    ofs.close();
 }

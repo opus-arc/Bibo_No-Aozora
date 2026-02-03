@@ -8,7 +8,7 @@
 
 #define DATABASE_PATH "../backend/database/databaseDB.duckdb"
 
-#define VIRTUAL_DATE_TEST_SWITCH true
+
 #define VIRTUAL_DATE 2026-02-10
 #define REVIEWS_PER_DAY 10
 
