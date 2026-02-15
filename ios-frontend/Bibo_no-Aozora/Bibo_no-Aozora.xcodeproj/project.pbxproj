@@ -7,53 +7,53 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
-		14127FFA2F306A3D0067F90E /* PBXContainerItemProxy */ = {
+		141280702F3486BA0067F90E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 14127FDD2F306A390067F90E /* Project object */;
+			containerPortal = 141280532F3486B90067F90E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 14127FE42F306A390067F90E;
+			remoteGlobalIDString = 1412805A2F3486B90067F90E;
 			remoteInfo = "Bibo_no-Aozora";
 		};
-		141280042F306A3D0067F90E /* PBXContainerItemProxy */ = {
+		1412807A2F3486BA0067F90E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 14127FDD2F306A390067F90E /* Project object */;
+			containerPortal = 141280532F3486B90067F90E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 14127FE42F306A390067F90E;
+			remoteGlobalIDString = 1412805A2F3486B90067F90E;
 			remoteInfo = "Bibo_no-Aozora";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		14127FE52F306A390067F90E /* Bibo_no-Aozora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bibo_no-Aozora.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		14127FF92F306A3D0067F90E /* Bibo_no-AozoraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bibo_no-AozoraTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		141280032F306A3D0067F90E /* Bibo_no-AozoraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bibo_no-AozoraUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1412805B2F3486B90067F90E /* Bibo_no-Aozora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bibo_no-Aozora.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1412806F2F3486BA0067F90E /* Bibo_no-AozoraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bibo_no-AozoraTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		141280792F3486BA0067F90E /* Bibo_no-AozoraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bibo_no-AozoraUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		1412800B2F306A3D0067F90E /* Exceptions for "Bibo_no-Aozora" folder in "Bibo_no-Aozora" target */ = {
+		141280812F3486BA0067F90E /* Exceptions for "Bibo_no-Aozora" folder in "Bibo_no-Aozora" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 14127FE42F306A390067F90E /* Bibo_no-Aozora */;
+			target = 1412805A2F3486B90067F90E /* Bibo_no-Aozora */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		14127FE72F306A390067F90E /* Bibo_no-Aozora */ = {
+		1412805D2F3486B90067F90E /* Bibo_no-Aozora */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				1412800B2F306A3D0067F90E /* Exceptions for "Bibo_no-Aozora" folder in "Bibo_no-Aozora" target */,
+				141280812F3486BA0067F90E /* Exceptions for "Bibo_no-Aozora" folder in "Bibo_no-Aozora" target */,
 			);
 			path = "Bibo_no-Aozora";
 			sourceTree = "<group>";
 		};
-		14127FFC2F306A3D0067F90E /* Bibo_no-AozoraTests */ = {
+		141280722F3486BA0067F90E /* Bibo_no-AozoraTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Bibo_no-AozoraTests";
 			sourceTree = "<group>";
 		};
-		141280062F306A3D0067F90E /* Bibo_no-AozoraUITests */ = {
+		1412807C2F3486BA0067F90E /* Bibo_no-AozoraUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Bibo_no-AozoraUITests";
 			sourceTree = "<group>";
@@ -61,21 +61,21 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		14127FE22F306A390067F90E /* Frameworks */ = {
+		141280582F3486B90067F90E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		14127FF62F306A3D0067F90E /* Frameworks */ = {
+		1412806C2F3486BA0067F90E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		141280002F306A3D0067F90E /* Frameworks */ = {
+		141280762F3486BA0067F90E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -85,22 +85,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		14127FDC2F306A390067F90E = {
+		141280522F3486B90067F90E = {
 			isa = PBXGroup;
 			children = (
-				14127FE72F306A390067F90E /* Bibo_no-Aozora */,
-				14127FFC2F306A3D0067F90E /* Bibo_no-AozoraTests */,
-				141280062F306A3D0067F90E /* Bibo_no-AozoraUITests */,
-				14127FE62F306A390067F90E /* Products */,
+				1412805D2F3486B90067F90E /* Bibo_no-Aozora */,
+				141280722F3486BA0067F90E /* Bibo_no-AozoraTests */,
+				1412807C2F3486BA0067F90E /* Bibo_no-AozoraUITests */,
+				1412805C2F3486B90067F90E /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		14127FE62F306A390067F90E /* Products */ = {
+		1412805C2F3486B90067F90E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				14127FE52F306A390067F90E /* Bibo_no-Aozora.app */,
-				14127FF92F306A3D0067F90E /* Bibo_no-AozoraTests.xctest */,
-				141280032F306A3D0067F90E /* Bibo_no-AozoraUITests.xctest */,
+				1412805B2F3486B90067F90E /* Bibo_no-Aozora.app */,
+				1412806F2F3486BA0067F90E /* Bibo_no-AozoraTests.xctest */,
+				141280792F3486BA0067F90E /* Bibo_no-AozoraUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,134 +108,134 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		14127FE42F306A390067F90E /* Bibo_no-Aozora */ = {
+		1412805A2F3486B90067F90E /* Bibo_no-Aozora */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1412800C2F306A3D0067F90E /* Build configuration list for PBXNativeTarget "Bibo_no-Aozora" */;
+			buildConfigurationList = 141280822F3486BA0067F90E /* Build configuration list for PBXNativeTarget "Bibo_no-Aozora" */;
 			buildPhases = (
-				14127FE12F306A390067F90E /* Sources */,
-				14127FE22F306A390067F90E /* Frameworks */,
-				14127FE32F306A390067F90E /* Resources */,
+				141280572F3486B90067F90E /* Sources */,
+				141280582F3486B90067F90E /* Frameworks */,
+				141280592F3486B90067F90E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				14127FE72F306A390067F90E /* Bibo_no-Aozora */,
+				1412805D2F3486B90067F90E /* Bibo_no-Aozora */,
 			);
 			name = "Bibo_no-Aozora";
 			packageProductDependencies = (
 			);
 			productName = "Bibo_no-Aozora";
-			productReference = 14127FE52F306A390067F90E /* Bibo_no-Aozora.app */;
+			productReference = 1412805B2F3486B90067F90E /* Bibo_no-Aozora.app */;
 			productType = "com.apple.product-type.application";
 		};
-		14127FF82F306A3D0067F90E /* Bibo_no-AozoraTests */ = {
+		1412806E2F3486BA0067F90E /* Bibo_no-AozoraTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 141280112F306A3D0067F90E /* Build configuration list for PBXNativeTarget "Bibo_no-AozoraTests" */;
+			buildConfigurationList = 141280872F3486BA0067F90E /* Build configuration list for PBXNativeTarget "Bibo_no-AozoraTests" */;
 			buildPhases = (
-				14127FF52F306A3D0067F90E /* Sources */,
-				14127FF62F306A3D0067F90E /* Frameworks */,
-				14127FF72F306A3D0067F90E /* Resources */,
+				1412806B2F3486BA0067F90E /* Sources */,
+				1412806C2F3486BA0067F90E /* Frameworks */,
+				1412806D2F3486BA0067F90E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				14127FFB2F306A3D0067F90E /* PBXTargetDependency */,
+				141280712F3486BA0067F90E /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				14127FFC2F306A3D0067F90E /* Bibo_no-AozoraTests */,
+				141280722F3486BA0067F90E /* Bibo_no-AozoraTests */,
 			);
 			name = "Bibo_no-AozoraTests";
 			packageProductDependencies = (
 			);
 			productName = "Bibo_no-AozoraTests";
-			productReference = 14127FF92F306A3D0067F90E /* Bibo_no-AozoraTests.xctest */;
+			productReference = 1412806F2F3486BA0067F90E /* Bibo_no-AozoraTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		141280022F306A3D0067F90E /* Bibo_no-AozoraUITests */ = {
+		141280782F3486BA0067F90E /* Bibo_no-AozoraUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 141280142F306A3D0067F90E /* Build configuration list for PBXNativeTarget "Bibo_no-AozoraUITests" */;
+			buildConfigurationList = 1412808A2F3486BA0067F90E /* Build configuration list for PBXNativeTarget "Bibo_no-AozoraUITests" */;
 			buildPhases = (
-				14127FFF2F306A3D0067F90E /* Sources */,
-				141280002F306A3D0067F90E /* Frameworks */,
-				141280012F306A3D0067F90E /* Resources */,
+				141280752F3486BA0067F90E /* Sources */,
+				141280762F3486BA0067F90E /* Frameworks */,
+				141280772F3486BA0067F90E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				141280052F306A3D0067F90E /* PBXTargetDependency */,
+				1412807B2F3486BA0067F90E /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				141280062F306A3D0067F90E /* Bibo_no-AozoraUITests */,
+				1412807C2F3486BA0067F90E /* Bibo_no-AozoraUITests */,
 			);
 			name = "Bibo_no-AozoraUITests";
 			packageProductDependencies = (
 			);
 			productName = "Bibo_no-AozoraUITests";
-			productReference = 141280032F306A3D0067F90E /* Bibo_no-AozoraUITests.xctest */;
+			productReference = 141280792F3486BA0067F90E /* Bibo_no-AozoraUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		14127FDD2F306A390067F90E /* Project object */ = {
+		141280532F3486B90067F90E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
-					14127FE42F306A390067F90E = {
+					1412805A2F3486B90067F90E = {
 						CreatedOnToolsVersion = 26.2;
 					};
-					14127FF82F306A3D0067F90E = {
+					1412806E2F3486BA0067F90E = {
 						CreatedOnToolsVersion = 26.2;
-						TestTargetID = 14127FE42F306A390067F90E;
+						TestTargetID = 1412805A2F3486B90067F90E;
 					};
-					141280022F306A3D0067F90E = {
+					141280782F3486BA0067F90E = {
 						CreatedOnToolsVersion = 26.2;
-						TestTargetID = 14127FE42F306A390067F90E;
+						TestTargetID = 1412805A2F3486B90067F90E;
 					};
 				};
 			};
-			buildConfigurationList = 14127FE02F306A390067F90E /* Build configuration list for PBXProject "Bibo_no-Aozora" */;
+			buildConfigurationList = 141280562F3486B90067F90E /* Build configuration list for PBXProject "Bibo_no-Aozora" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 14127FDC2F306A390067F90E;
+			mainGroup = 141280522F3486B90067F90E;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 14127FE62F306A390067F90E /* Products */;
+			productRefGroup = 1412805C2F3486B90067F90E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				14127FE42F306A390067F90E /* Bibo_no-Aozora */,
-				14127FF82F306A3D0067F90E /* Bibo_no-AozoraTests */,
-				141280022F306A3D0067F90E /* Bibo_no-AozoraUITests */,
+				1412805A2F3486B90067F90E /* Bibo_no-Aozora */,
+				1412806E2F3486BA0067F90E /* Bibo_no-AozoraTests */,
+				141280782F3486BA0067F90E /* Bibo_no-AozoraUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		14127FE32F306A390067F90E /* Resources */ = {
+		141280592F3486B90067F90E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		14127FF72F306A3D0067F90E /* Resources */ = {
+		1412806D2F3486BA0067F90E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		141280012F306A3D0067F90E /* Resources */ = {
+		141280772F3486BA0067F90E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -245,21 +245,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		14127FE12F306A390067F90E /* Sources */ = {
+		141280572F3486B90067F90E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		14127FF52F306A3D0067F90E /* Sources */ = {
+		1412806B2F3486BA0067F90E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		14127FFF2F306A3D0067F90E /* Sources */ = {
+		141280752F3486BA0067F90E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -269,20 +269,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		14127FFB2F306A3D0067F90E /* PBXTargetDependency */ = {
+		141280712F3486BA0067F90E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 14127FE42F306A390067F90E /* Bibo_no-Aozora */;
-			targetProxy = 14127FFA2F306A3D0067F90E /* PBXContainerItemProxy */;
+			target = 1412805A2F3486B90067F90E /* Bibo_no-Aozora */;
+			targetProxy = 141280702F3486BA0067F90E /* PBXContainerItemProxy */;
 		};
-		141280052F306A3D0067F90E /* PBXTargetDependency */ = {
+		1412807B2F3486BA0067F90E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 14127FE42F306A390067F90E /* Bibo_no-Aozora */;
-			targetProxy = 141280042F306A3D0067F90E /* PBXContainerItemProxy */;
+			target = 1412805A2F3486B90067F90E /* Bibo_no-Aozora */;
+			targetProxy = 1412807A2F3486BA0067F90E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1412800D2F306A3D0067F90E /* Debug */ = {
+		141280832F3486BA0067F90E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -294,11 +294,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Bibo_no-Aozora/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Aozora;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,7 +318,7 @@
 			};
 			name = Debug;
 		};
-		1412800E2F306A3D0067F90E /* Release */ = {
+		141280842F3486BA0067F90E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -328,11 +330,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Bibo_no-Aozora/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Aozora;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -350,7 +354,7 @@
 			};
 			name = Release;
 		};
-		1412800F2F306A3D0067F90E /* Debug */ = {
+		141280852F3486BA0067F90E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -414,7 +418,7 @@
 			};
 			name = Debug;
 		};
-		141280102F306A3D0067F90E /* Release */ = {
+		141280862F3486BA0067F90E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -471,7 +475,7 @@
 			};
 			name = Release;
 		};
-		141280122F306A3D0067F90E /* Debug */ = {
+		141280882F3486BA0067F90E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -493,7 +497,7 @@
 			};
 			name = Debug;
 		};
-		141280132F306A3D0067F90E /* Release */ = {
+		141280892F3486BA0067F90E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -515,7 +519,7 @@
 			};
 			name = Release;
 		};
-		141280152F306A3D0067F90E /* Debug */ = {
+		1412808B2F3486BA0067F90E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -535,7 +539,7 @@
 			};
 			name = Debug;
 		};
-		141280162F306A3D0067F90E /* Release */ = {
+		1412808C2F3486BA0067F90E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -558,43 +562,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		14127FE02F306A390067F90E /* Build configuration list for PBXProject "Bibo_no-Aozora" */ = {
+		141280562F3486B90067F90E /* Build configuration list for PBXProject "Bibo_no-Aozora" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1412800F2F306A3D0067F90E /* Debug */,
-				141280102F306A3D0067F90E /* Release */,
+				141280852F3486BA0067F90E /* Debug */,
+				141280862F3486BA0067F90E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1412800C2F306A3D0067F90E /* Build configuration list for PBXNativeTarget "Bibo_no-Aozora" */ = {
+		141280822F3486BA0067F90E /* Build configuration list for PBXNativeTarget "Bibo_no-Aozora" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1412800D2F306A3D0067F90E /* Debug */,
-				1412800E2F306A3D0067F90E /* Release */,
+				141280832F3486BA0067F90E /* Debug */,
+				141280842F3486BA0067F90E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		141280112F306A3D0067F90E /* Build configuration list for PBXNativeTarget "Bibo_no-AozoraTests" */ = {
+		141280872F3486BA0067F90E /* Build configuration list for PBXNativeTarget "Bibo_no-AozoraTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				141280122F306A3D0067F90E /* Debug */,
-				141280132F306A3D0067F90E /* Release */,
+				141280882F3486BA0067F90E /* Debug */,
+				141280892F3486BA0067F90E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		141280142F306A3D0067F90E /* Build configuration list for PBXNativeTarget "Bibo_no-AozoraUITests" */ = {
+		1412808A2F3486BA0067F90E /* Build configuration list for PBXNativeTarget "Bibo_no-AozoraUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				141280152F306A3D0067F90E /* Debug */,
-				141280162F306A3D0067F90E /* Release */,
+				1412808B2F3486BA0067F90E /* Debug */,
+				1412808C2F3486BA0067F90E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 14127FDD2F306A390067F90E /* Project object */;
+	rootObject = 141280532F3486B90067F90E /* Project object */;
 }

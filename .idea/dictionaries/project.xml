@@ -4,6 +4,7 @@
       <w>NOTESPLAYER</w>
       <w>adsr</w>
       <w>asds</w>
+      <w>bibocore</w>
       <w>comprehensiveexamination</w>
       <w>databasechecker</w>
       <w>databasetemplate</w>
@@ -20,6 +21,7 @@
       <w>stod</w>
       <w>timbreenv</w>
       <w>tonepreset</w>
+      <w>yymmdd</w>
     </words>
   </dictionary>
 </component>

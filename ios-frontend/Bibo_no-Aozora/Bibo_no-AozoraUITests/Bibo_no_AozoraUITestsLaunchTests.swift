@@ -2,7 +2,7 @@
 //  Bibo_no_AozoraUITestsLaunchTests.swift
 //  Bibo_no-AozoraUITests
 //
-//  Created by opus arc on 2026/2/2.
+//  Created by opus arc on 2026/2/5.
 //
 
 import XCTest

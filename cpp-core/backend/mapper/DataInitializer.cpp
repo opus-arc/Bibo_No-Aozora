@@ -360,13 +360,19 @@ std::filesystem::path DataInitializer::todayCsvChecker() {
 
 // 决定今日表的内容
 void DataInitializer::selectTodayCards() {
-    auto res = databaseDB_2_con.Query(R"SQL(
-        SELECT
-
-    )SQL");
+    const std::string reviewsPerDay = std::to_string(REVIEWS_PER_DAY);
+    const std::string sql =
+        "INSERT INTO todayCards tc (id,name,d1,h1,cost,recall,ivl)"
+        "WHERE ld.id "
+        "FROM learningData ld "
+        "ORDER BY ivl IS NOT NULL DESC "
+        "LIMIT " + reviewsPerDay;
+    const auto res = databaseDB_2_con.Query(sql);
+    if (!res || res->HasError())
+        throw std::runtime_error("今日表内容生成失败");
 }
 
-
+// "SELECT id,name,d1,h1,cost,recall,ivl "
 
 
 

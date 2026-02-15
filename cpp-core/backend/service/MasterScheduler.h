@@ -4,7 +4,7 @@
 
 #ifndef BIBO_NO_AOZORA_MASTERSCHEDULER_H
 #define BIBO_NO_AOZORA_MASTERSCHEDULER_H
-#include "duckdb.hpp"
+#include "../../utils/external/duckdb/include/duckdb.hpp"
 
 #define DATABASE_PATH "../backend/database/databaseDB.duckdb"
 

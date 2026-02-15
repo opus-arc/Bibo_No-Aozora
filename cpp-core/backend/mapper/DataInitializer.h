@@ -6,7 +6,7 @@
 #define BIBO_NO_AOZORA_DATAINITIALIZER_H
 #include <filesystem>
 
-#include "duckdb.hpp"
+#include "../../utils/external/duckdb/include/duckdb.hpp"
 
 #define DATABASE_PATH "../backend/database/databaseDB.duckdb"
 
@@ -14,9 +14,11 @@
 
 #define HISTORY_PATH "../backend/database/generated/history/"
 
+#define REVIEWS_PER_DAY 10
+
 // #define GENERATED_FOLDER_PATH "../backend/database/generated/"
 
-#define VIRTUAL_DATE_TEST_SWITCH true
+#define VIRTUAL_DATE_TEST_SWITCH false
 
 // 只识别 YYMMDD 格式的日期
 #define VIRTUAL_DATE "260204"

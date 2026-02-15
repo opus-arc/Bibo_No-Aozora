@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  Bibo_no-Aozora
 //
-//  Created by opus arc on 2026/2/2.
+//  Created by opus arc on 2026/2/5.
 //
 
 import SwiftUI

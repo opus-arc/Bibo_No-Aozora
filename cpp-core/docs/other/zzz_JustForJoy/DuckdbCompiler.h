@@ -5,7 +5,7 @@
 #ifndef BIBO_NO_AOZORA_DUCKDBCOMPILER_H
 #define BIBO_NO_AOZORA_DUCKDBCOMPILER_H
 
-#include "../../../utils/external/duckdb/duckdb.hpp"
+#include "../../../utils/external/duckdb/include/duckdb.hpp"
 #define DATABASE_PATH "/databaseDB.duckdb"
 
 /**

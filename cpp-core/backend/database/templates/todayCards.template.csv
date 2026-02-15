@@ -1,0 +1,11 @@
+name,type,range, note
+id,VARCHAR,,对象id
+name,VARCHAR,,对象名称
+numberOfCalls,INT,"[1,)",日间调用次数
+outcome,VARCHAR,,回答情况
+statue,BOOLEAN,,日间调度是否完成
+d,INT,"[1,18]",难度
+h,DOUBLE,"[0,360]",半衰期
+cost,DOUBLE,"[0,)",复习成本 ssp-mmc
+recall,DOUBLE,"[0,1]",记忆概率 ssp-mmc
+ivl,INT,"[0,360]",遗忘间隔 ssp-mmc

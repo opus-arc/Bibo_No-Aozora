@@ -5,8 +5,6 @@
 #ifndef BIBO_NO_AOZORA_DATABASECHECKER_H
 #define BIBO_NO_AOZORA_DATABASECHECKER_H
 
-#include<filesystem>
-
 #define DATABASE_PATH "../backend/database/databaseDB.duckdb"
 
 #define TEMPLATES_FOLDER_PATH "../backend/database/templates"
@@ -16,7 +14,7 @@
 #define COURSE_COMPLIER_PATH "../backend/database/generated/courseComplier.csv"
 
 
-#include "duckdb.hpp"
+#include <duckdb.hpp>
 
 
 /**
