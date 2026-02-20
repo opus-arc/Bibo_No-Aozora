@@ -7,7 +7,6 @@ id,name,note,pid,pname,basicDifficulty,isLeaf
 0105,tonality,调性,01,eSkill,,false
 0106,melody,旋律,01,eSkill,,false
 0107,phrase,乐句,01,eSkill,,false
-0108,harmonicFlow,和声进行,01,eSkill,,false
 010101,C1,第一个八度 do,0101,single,,true
 010102,C#1,第一个八度 升do,0101,single,,true
 010103,D1,第一个八度 re,0101,single,,true

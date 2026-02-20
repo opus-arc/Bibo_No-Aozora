@@ -9,8 +9,8 @@
 #include <string>
 #include <algorithm>
 
-#include "../backend/database/DatabaseChecker.h"
-#include "../backend/mapper/DataInitializer.h"
+#include "../../../backend/database/DatabaseChecker.h"
+#include "../../../backend/mapper/DataInitializer.h"
 #include "Terminal.h"
 
 #define ICON_PATH "../icon/aozora.txt"

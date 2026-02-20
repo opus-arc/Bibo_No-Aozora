@@ -11,7 +11,9 @@
       <w>datainitializer</w>
       <w>dataprocesser</w>
       <w>duckdbcompiler</w>
+      <w>lowlevel</w>
       <w>masterscheduler</w>
+      <w>mymidifile</w>
       <w>pitchmemory</w>
       <w>pitchs</w>
       <w>soundconfig</w>
@@ -19,6 +21,7 @@
       <w>sscanf</w>
       <w>sspmmc</w>
       <w>stod</w>
+      <w>swresample</w>
       <w>timbreenv</w>
       <w>tonepreset</w>
       <w>yymmdd</w>

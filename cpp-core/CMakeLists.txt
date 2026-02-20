@@ -24,7 +24,7 @@ set(BIBO_INTERNAL_SOURCES
         backend/database/DatabaseChecker.cpp
         backend/mapper/DataInitializer.cpp
         backend/service/MasterScheduler.cpp
-        terminal/terminal.cpp
+        utils/internal/terminal/terminal.cpp
 )
 
 
@@ -56,6 +56,7 @@ file(GLOB BIBO_EXTERNAL_DIRS LIST_DIRECTORIES true "${BIBO_EXTERNAL_ROOT}/*")
 
 set(BIBO_EXTERNAL_ARCHIVES "")
 set(BIBO_EXTERNAL_INCLUDE_DIRS "")
+add_library(BiboCore_external INTERFACE)
 
 foreach(_dir IN LISTS BIBO_EXTERNAL_DIRS)
     if(IS_DIRECTORY "${_dir}")
@@ -69,15 +70,47 @@ foreach(_dir IN LISTS BIBO_EXTERNAL_DIRS)
             file(GLOB _archives "${_dir}/archives/*.a")
             list(APPEND BIBO_EXTERNAL_ARCHIVES ${_archives})
         endif()
+
+        # 3) 通用源码库支持：若 external/<name>/src 存在源码，则自动编译成静态库并链接
+        # 约定：外部库头文件放在 include/，库源码放在与 include 同级的 src/
+        # 注意：tools/ 往往是示例/命令行工具，可能依赖额外子项目；默认不编译。
+        option(BIBO_EXTERNAL_BUILD_TOOLS "Build external tools/ sources" OFF)
+
+        set(_ext_src_globs "")
+        if(EXISTS "${_dir}/src" AND IS_DIRECTORY "${_dir}/src")
+            list(APPEND _ext_src_globs "${_dir}/src/*.cpp" "${_dir}/src/*.cc" "${_dir}/src/*.cxx")
+        endif()
+        if(BIBO_EXTERNAL_BUILD_TOOLS)
+            if(EXISTS "${_dir}/tools" AND IS_DIRECTORY "${_dir}/tools")
+                list(APPEND _ext_src_globs "${_dir}/tools/*.cpp" "${_dir}/tools/*.cc" "${_dir}/tools/*.cxx")
+            endif()
+        endif()
+
+        if(_ext_src_globs)
+            file(GLOB _ext_src_files ${_ext_src_globs})
+            if(_ext_src_files)
+                get_filename_component(_ext_name "${_dir}" NAME)
+                string(MAKE_C_IDENTIFIER "${_ext_name}" _ext_name_id)
+                set(_ext_target "ext_${_ext_name_id}")
+
+                if(NOT TARGET ${_ext_target})
+                    add_library(${_ext_target} STATIC ${_ext_src_files}
+                            utils/internal/midifile/MyMidifile.cpp
+                            utils/internal/midifile/MyMidifile.h)
+                    if(EXISTS "${_dir}/include" AND IS_DIRECTORY "${_dir}/include")
+                        target_include_directories(${_ext_target} PUBLIC "${_dir}/include")
+                    endif()
+                    # 传播到所有依赖 BiboCore_external 的目标
+                    target_link_libraries(BiboCore_external INTERFACE ${_ext_target})
+                endif()
+            endif()
+        endif()
     endif()
 endforeach()
 
 # 去重
 list(REMOVE_DUPLICATES BIBO_EXTERNAL_INCLUDE_DIRS)
 list(REMOVE_DUPLICATES BIBO_EXTERNAL_ARCHIVES)
-
-# 外部库接口目标（不生成实体文件，只传播依赖）
-add_library(BiboCore_external INTERFACE)
 
 
 # 查找线程库
@@ -175,7 +208,11 @@ add_custom_target(BiboCore ALL DEPENDS "${BIBOCORE_MERGED_A}")
 # 可选：本地调试用可执行程序
 # ----------------------------
 if(BIBO_BUILD_APP)
-    add_executable(Bibo_no-Aozora ${BIBO_INTERNAL_SOURCES})
+    add_executable(Bibo_no-Aozora ${BIBO_INTERNAL_SOURCES}
+            utils/internal/essentia/MyEssentia.cpp
+            utils/internal/essentia/MyEssentia.h
+            utils/internal/AozoraDatabase/AozoraDatabase.cpp
+            utils/internal/AozoraDatabase/AozoraDatabase.h)
     target_link_libraries(Bibo_no-Aozora PRIVATE BiboCore_internal)
 endif()
 
