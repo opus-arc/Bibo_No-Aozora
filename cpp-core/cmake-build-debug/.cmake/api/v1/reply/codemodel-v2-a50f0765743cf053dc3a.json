@@ -1,0 +1,87 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "4.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Bibo_no-Aozora",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "BiboCore::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-BiboCore-Debug-fb4b91301a18db6eb784.json",
+					"name" : "BiboCore",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "BiboCore_internal::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-BiboCore_internal-Debug-a2ceb6baf82563890fe0.json",
+					"name" : "BiboCore_internal",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Bibo_no-Aozora::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Bibo_no-Aozora-Debug-45884a35c8a35710c32a.json",
+					"name" : "Bibo_no-Aozora",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ext_midifile::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ext_midifile-Debug-f7c0fdfaa7ce9b61db3b.json",
+					"name" : "ext_midifile",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/opusarc/CLionProjects/Bibo_no-Aozora/cpp-core/cmake-build-debug",
+		"source" : "/Users/opusarc/CLionProjects/Bibo_no-Aozora/cpp-core"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 8
+	}
+}

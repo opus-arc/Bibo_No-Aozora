@@ -1,0 +1,24 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -G Ninja -S /Users/opusarc/CLionProjects/Bibo_no-Aozora/cpp-core -B /Users/opusarc/CLionProjects/Bibo_no-Aozora/cpp-core/cmake-build-debug
+-- BiboCore.a 将生成于: /Users/opusarc/CLionProjects/Bibo_no-Aozora/cpp-core/cmake-build-debug/BiboCore.a
+-- Configuring done (0.0s)
+CMake Error at CMakeLists.txt:97 (add_library):
+  Cannot find source file:
+
+    utils/internal/midifile/MyMidifile.cpp
+
+
+CMake Error at CMakeLists.txt:211 (add_executable):
+  Cannot find source file:
+
+    utils/internal/essentia/MyEssentia.cpp
+
+
+CMake Error at CMakeLists.txt:97 (add_library):
+  No SOURCES given to target: ext_midifile
+
+
+CMake Error at CMakeLists.txt:211 (add_executable):
+  No SOURCES given to target: Bibo_no-Aozora
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.
