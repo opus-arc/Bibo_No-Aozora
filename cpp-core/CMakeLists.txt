@@ -18,7 +18,7 @@ set(BIBO_INTERNAL_SOURCES
         utils/internal/SpectralLoom/tools/Chord.cpp
         utils/internal/SpectralLoom/tools/EnvHarmonics.cpp
         utils/internal/SpectralLoom/tools/CelloDynamic.cpp
-        utils/internal/SSP_MMC/SSP_MMC.cpp
+        utils/internal/MySSP_MMC/SSP_MMC.cpp
         utils/internal/SpectralLoom/SpectralLoom.cpp
         utils/internal/SpectralLoom/tools/ComprehensiveExamination.cpp
         backend/database/DatabaseChecker.cpp
@@ -95,8 +95,8 @@ foreach(_dir IN LISTS BIBO_EXTERNAL_DIRS)
 
                 if(NOT TARGET ${_ext_target})
                     add_library(${_ext_target} STATIC ${_ext_src_files}
-                            utils/internal/midifile/MyMidifile.cpp
-                            utils/internal/midifile/MyMidifile.h)
+                            utils/internal/MyMidifile/MyMidifile.cpp
+                            utils/internal/MyMidifile/MyMidifile.h)
                     if(EXISTS "${_dir}/include" AND IS_DIRECTORY "${_dir}/include")
                         target_include_directories(${_ext_target} PUBLIC "${_dir}/include")
                     endif()
@@ -209,8 +209,8 @@ add_custom_target(BiboCore ALL DEPENDS "${BIBOCORE_MERGED_A}")
 # ----------------------------
 if(BIBO_BUILD_APP)
     add_executable(Bibo_no-Aozora ${BIBO_INTERNAL_SOURCES}
-            utils/internal/essentia/MyEssentia.cpp
-            utils/internal/essentia/MyEssentia.h
+            utils/internal/MyEssentia/MyEssentia.cpp
+            utils/internal/MyEssentia/MyEssentia.h
             utils/internal/AozoraDatabase/AozoraDatabase.cpp
             utils/internal/AozoraDatabase/AozoraDatabase.h)
     target_link_libraries(Bibo_no-Aozora PRIVATE BiboCore_internal)

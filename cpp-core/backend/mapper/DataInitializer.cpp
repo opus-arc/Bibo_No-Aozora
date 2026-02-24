@@ -6,7 +6,7 @@
 
 #include "../database/DatabaseChecker.h"
 
-#include "../../utils/internal/SSP_MMC/SSP_MMC.h"
+#include "../../utils/internal/MySSP_MMC/SSP_MMC.h"
 
 
 DataInitializer::DataInitializer() {
